@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:8.0.31
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - my-db:/var/lib/mysql
+  drone-feeder:
+    image: drone-feeder
+    build: .
+    restart: always
+    ports:
+      - 8888:8080
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/drone
+
+volumes:
+  my-db:
