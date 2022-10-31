@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS drone;
+
+USE drone;
+
+CREATE TABLE tb_teste(
+    id int NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY(UserID)
+);
