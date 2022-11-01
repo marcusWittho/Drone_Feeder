@@ -1,5 +1,6 @@
 package com.futuereh.dronefeeder.controller;
 
+import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.service.DroneService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,11 +29,8 @@ public class DroneController {
    * <p>@return - retorna uma String com as informações do drone adicionado ao DB.</p>
    */
   @PostMapping("/add")
-  public Drone addDrone(@RequestBody Drone drone) {
+  public Drone addDrone(@RequestBody DroneDto droneDto) {
 
-    Drone newDrone = new Drone(
-        drone.getSerialNumber(), drone.getLatitude(), drone.getLongitude(), drone.isOperando());
-
-    return service.addDrone(newDrone);
+    return service.addDrone(droneDto);
   }
 }
