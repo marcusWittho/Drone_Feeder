@@ -1,17 +1,16 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.dto.DroneDto;
-import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.service.DroneService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -64,5 +63,19 @@ public class DroneController {
                                     @RequestBody DroneDto droneDto) {
 
     return ResponseEntity.status(HttpStatus.OK).body(service.updateDrone(id, droneDto));
+  }
+
+  /**
+   * Método responsável por remover determinado drone.
+   *
+   * @param id - recebe o id do drone que será removido.
+   * @return - não há retorno, somente o status http 200.
+   */
+  @DeleteMapping("/{id}")
+  public ResponseEntity removeDrone(@PathVariable(value = "id") Integer id) {
+
+    service.removeDrone(id);
+
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 }

@@ -99,4 +99,20 @@ public class DroneService {
 
     return toBeUpdated.get();
   }
+
+  /**
+   * Método responsável por remover determinado drone.
+   *
+   * @param id - recebe o id do drone que será removido.
+   */
+  public void removeDrone(Integer id) {
+
+    Optional<Drone> toBeDeleted = repository.findById(id);
+
+    if (toBeDeleted.isEmpty()) {
+      throw new DroneNotFoundException();
+    }
+
+    repository.deleteById(id);
+  }
 }

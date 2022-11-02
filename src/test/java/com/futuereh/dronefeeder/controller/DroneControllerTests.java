@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -140,5 +141,30 @@ public class DroneControllerTests {
       .andExpect(jsonPath("$.latitude").value(newDrone.getLatitude()))
       .andExpect(jsonPath("$.longitude").value(newDrone.getLongitude()))
       .andExpect(jsonPath("$.operando").value(newDrone.isOperando()));
+  }
+
+  @Test
+  @Order(7)
+  @DisplayName("07 - Testa se a remoção do drone ocorreu com sucesso.")
+  void removeDrone() throws Exception {
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+
+    droneRepository.save(newDrone);
+
+    mockMvc
+      .perform(delete("/drone/" + newDrone.getId()))
+      .andExpect(status().isOk());
+  }
+
+  @Test
+  @Order(8)
+  @DisplayName("08 - Testa a tentativa de remoção de um drone inexistente.")
+  void droneNaoEncontradoParaRemocao() throws Exception {
+
+    mockMvc
+      .perform(delete("/drone/0"))
+      .andExpect(status().isNotFound())
+      .andExpect(jsonPath("$.error").value("Drone não encontrado."));
   }
 }
