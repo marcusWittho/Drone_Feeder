@@ -1,9 +1,11 @@
 package com.futuereh.dronefeeder.service;
 
 import com.futuereh.dronefeeder.commons.DroneExistsException;
+import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,5 +39,22 @@ public class DroneService {
     this.repository.save(newDrone);
 
     return newDrone;
+  }
+
+  /**
+   * Método responsável por obter um drone pelo id informado.
+   *
+   * @param id - recebe o id do drone a ser pesquisado.
+   * @return - retorna um drone referente ao id informado no parâmetro.
+   */
+  public Drone droneById(Integer id) {
+
+    Optional drone = repository.findById(id);
+
+    if (drone.isEmpty()) {
+      throw new DroneNotFoundException();
+    }
+
+    return (Drone) drone.get();
   }
 }

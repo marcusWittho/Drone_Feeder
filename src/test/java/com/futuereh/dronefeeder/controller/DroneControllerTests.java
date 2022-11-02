@@ -6,6 +6,7 @@ import com.futuereh.dronefeeder.repository.DroneRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.ArgumentCaptor;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DroneControllerTests {
 
   @Autowired
@@ -45,6 +47,7 @@ public class DroneControllerTests {
   }
 
   @Test
+  @Order(1)
   @DisplayName("01 - Testa a adição de novos drones ao DB.")
   void adicionarNovoDrone() throws Exception {
 
@@ -53,7 +56,7 @@ public class DroneControllerTests {
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(newDrone)))
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
       .andExpect(jsonPath("$.serialNumber").value(newDrone.getSerialNumber()))
       .andExpect(jsonPath("$.latitude").value(newDrone.getLatitude()))
       .andExpect(jsonPath("$.longitude").value(newDrone.getLongitude()))
@@ -70,6 +73,7 @@ public class DroneControllerTests {
   }
 
   @Test
+  @Order(2)
   @DisplayName("02 - Testa caso de drone a ser adicionado já existir no DB.")
   void adicionarDroneExistente() throws Exception {
 
@@ -82,5 +86,31 @@ public class DroneControllerTests {
       .content(new ObjectMapper().writeValueAsString(newDrone)))
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isConflict()).andExpect(jsonPath("$.error").value("Drone já cadastrado."));
+  }
+
+  @Test
+  @Order(3)
+  @DisplayName("03 - Testa o retorno da busca por id.")
+  void buscarDronePorId() throws Exception {
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+
+    droneRepository.save(newDrone);
+
+    mockMvc
+      .perform(get("/drone/" + newDrone.getId()).contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+      .andExpect(jsonPath("$.serialNumber").value(newDrone.getSerialNumber()));
+  }
+
+  @Test
+  @Order(4)
+  @DisplayName("04 - Testa caso em que não é encontrado drone com o id informado.")
+  void dronePorIdNotFound() throws Exception {
+
+    mockMvc
+      .perform(get("/drone/0").contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
+      .andExpect(status().isNotFound())    .andExpect(jsonPath("$.error").value("Drone não encontrado."));
   }
 }

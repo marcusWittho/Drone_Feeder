@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.074s</div>
+<div class="counter">0.166s</div>
 <p>duration</p>
 </div>
 </td>
@@ -66,6 +66,9 @@
 <li>
 <a href="#tab1">Standard output</a>
 </li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -79,7 +82,7 @@
 </thead>
 <tr>
 <td class="success">contextLoads()</td>
-<td class="success">0.074s</td>
+<td class="success">0.166s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,21 +90,21 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>18:13:16.551 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-18:13:16.562 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-18:13:16.591 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
-18:13:16.600 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests], using SpringBootContextLoader
-18:13:16.603 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: class path resource [com/futuereh/dronefeeder/DroneFeederApplicationTests-context.xml] does not exist
-18:13:16.604 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: class path resource [com/futuereh/dronefeeder/DroneFeederApplicationTestsContext.groovy] does not exist
-18:13:16.604 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-18:13:16.605 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: DroneFeederApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-18:13:16.645 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.futuereh.dronefeeder.DroneFeederApplicationTests]
-18:13:16.686 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/home/wittho/eclipse-workspace/acc-java/15-final/Drone_Feeder/build/classes/java/main/com/futuereh/dronefeeder/DroneFeederApplication.class]
-18:13:16.687 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.futuereh.dronefeeder.DroneFeederApplication for test class com.futuereh.dronefeeder.DroneFeederApplicationTests
-18:13:16.756 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: using defaults.
-18:13:16.756 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-18:13:16.768 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5b057c8c, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1eb6749b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@652a7737, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5b7ea70d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2bef51f2, org.springframework.test.context.support.DirtiesContextTestExecutionListener@650eab8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@30f5a68a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1e1d3956, org.springframework.test.context.event.EventPublishingTestExecutionListener@4f2c9ba6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4e28bdd1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@53f48368, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@24d4d7c9, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@f0e995e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@4c37b5b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@73db4768]
-18:13:16.770 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@3f363cf5 testClass = DroneFeederApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3829ac1 testClass = DroneFeederApplicationTests, locations = '{}', classes = '{class com.futuereh.dronefeeder.DroneFeederApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@3d9c13b5, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@14fc1f0, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@632ceb35, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@130e116b, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@9ebe38b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@31f9b85e], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+<pre>22:25:29.380 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+22:25:29.416 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+22:25:29.499 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+22:25:29.526 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests], using SpringBootContextLoader
+22:25:29.543 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: class path resource [com/futuereh/dronefeeder/DroneFeederApplicationTests-context.xml] does not exist
+22:25:29.546 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: class path resource [com/futuereh/dronefeeder/DroneFeederApplicationTestsContext.groovy] does not exist
+22:25:29.549 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+22:25:29.550 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: DroneFeederApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:25:29.654 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.futuereh.dronefeeder.DroneFeederApplicationTests]
+22:25:29.804 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/home/wittho/eclipse-workspace/acc-java/15-final/Drone_Feeder/build/classes/java/main/com/futuereh/dronefeeder/DroneFeederApplication.class]
+22:25:29.808 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.futuereh.dronefeeder.DroneFeederApplication for test class com.futuereh.dronefeeder.DroneFeederApplicationTests
+22:25:30.021 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.futuereh.dronefeeder.DroneFeederApplicationTests]: using defaults.
+22:25:30.021 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+22:25:30.070 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2c9399a4, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@191ae03f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@9635fa, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@53ab0286, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@63c5efee, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2d10e0b1, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1c98290c, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@172ca72b, org.springframework.test.context.event.EventPublishingTestExecutionListener@5bda80bf, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@71e5f61d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2ce86164, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5e8f9e2d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@51df223b, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@fd46303, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@60d8c0dc]
+22:25:30.075 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@1e044120 testClass = DroneFeederApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@2cf23c81 testClass = DroneFeederApplicationTests, locations = '{}', classes = '{class com.futuereh.dronefeeder.DroneFeederApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@db57326, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@512535ff, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@22295ec4, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@70f59913, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@2a448449, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@223aa2f7], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -111,20 +114,27 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.5)
 
-2022-11-01 18:13:17.064  INFO 26215 --- [    Test worker] c.f.d.DroneFeederApplicationTests        : Starting DroneFeederApplicationTests using Java 11.0.16 on Nitro with PID 26215 (started by wittho in /home/wittho/eclipse-workspace/acc-java/15-final/Drone_Feeder)
-2022-11-01 18:13:17.066  INFO 26215 --- [    Test worker] c.f.d.DroneFeederApplicationTests        : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2022-11-01 18:13:17.601  INFO 26215 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2022-11-01 18:13:17.658  INFO 26215 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 1 JPA repository interfaces.
-2022-11-01 18:13:18.076  INFO 26215 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2022-11-01 18:13:18.118  INFO 26215 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
-2022-11-01 18:13:18.297  INFO 26215 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-11-01 18:13:18.404  INFO 26215 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2022-11-01 18:13:18.759  INFO 26215 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2022-11-01 18:13:18.771  INFO 26215 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2022-11-01 18:13:19.257  INFO 26215 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-11-01 18:13:19.265  INFO 26215 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2022-11-01 18:13:19.704  WARN 26215 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2022-11-01 18:13:20.143  INFO 26215 --- [    Test worker] c.f.d.DroneFeederApplicationTests        : Started DroneFeederApplicationTests in 3.342 seconds (JVM running for 4.267)
+2022-11-01 22:25:30.783  INFO 10071 --- [    Test worker] c.f.d.DroneFeederApplicationTests        : Starting DroneFeederApplicationTests using Java 11.0.16 on Nitro with PID 10071 (started by wittho in /home/wittho/eclipse-workspace/acc-java/15-final/Drone_Feeder)
+2022-11-01 22:25:30.785  INFO 10071 --- [    Test worker] c.f.d.DroneFeederApplicationTests        : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2022-11-01 22:25:32.106  INFO 10071 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-11-01 22:25:32.193  INFO 10071 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 69 ms. Found 1 JPA repository interfaces.
+2022-11-01 22:25:33.201  INFO 10071 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-11-01 22:25:33.321  INFO 10071 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
+2022-11-01 22:25:33.704  INFO 10071 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-11-01 22:25:33.918  INFO 10071 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-11-01 22:25:34.641  INFO 10071 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-11-01 22:25:34.677  INFO 10071 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2022-11-01 22:25:35.916  INFO 10071 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-11-01 22:25:35.931  INFO 10071 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-11-01 22:25:36.860  WARN 10071 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-11-01 22:25:37.733  INFO 10071 --- [    Test worker] c.f.d.DroneFeederApplicationTests        : Started DroneFeederApplicationTests in 7.579 seconds (JVM running for 10.03)
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>[2022.11.01 22:25:30] (Coverage): Error during class instrumentation: org.springframework.boot.logging.log4j2.Log4J2LoggingSystem: java.lang.RuntimeException: java.io.IOException: Class org/apache/logging/log4j/core/config/composite/CompositeConfiguration not found
 </pre>
 </span>
 </div>
@@ -136,7 +146,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 1 de nov de 2022 18:13:21</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 1 de nov de 2022 22:25:41</p>
 </div>
 </div>
 </body>

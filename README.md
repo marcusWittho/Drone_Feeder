@@ -35,7 +35,7 @@
  
  - Endpoint para adicionar um novo drone
  ```
-   // endpoint
+   // POST - endpoint para adicionar drone
    http://localhost:8080/drone/add
    
    // exemplo de body   
@@ -45,6 +45,9 @@
 	"longitude": -23.5747372,
 	"operando": true
    }
+   
+   // GET - endpoint para buscar por id
+   http://localhost:8080/drone/[número-do-id]
  ```
 
  - Os testes podem ser executados com o seguinte comando
