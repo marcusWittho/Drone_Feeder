@@ -23,6 +23,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,12 +56,7 @@ public class DroneControllerTests {
 
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
-        .content(new ObjectMapper().writeValueAsString(newDrone)))
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
-      .andExpect(jsonPath("$.serialNumber").value(newDrone.getSerialNumber()))
-      .andExpect(jsonPath("$.latitude").value(newDrone.getLatitude()))
-      .andExpect(jsonPath("$.longitude").value(newDrone.getLongitude()))
-      .andExpect(jsonPath("$.operando").value(newDrone.isOperando()));
+      .content(new ObjectMapper().writeValueAsString(newDrone)));
 
     verify(droneRepository, atLeast(1)).save(serieCaptor.capture());
 
@@ -74,7 +70,20 @@ public class DroneControllerTests {
 
   @Test
   @Order(2)
-  @DisplayName("02 - Testa caso de drone a ser adicionado já existir no DB.")
+  @DisplayName("02 - Testa adição de novo drone sem informar o serialNumber.")
+  void adicionarNovoDroneSemSerialNumber() throws Exception {
+
+    Drone newDrone = new Drone("", -46.761107, -23.5747372, true);
+
+    mockMvc
+      .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
+      .content(new ObjectMapper().writeValueAsString(newDrone)))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+  }
+
+  @Test
+  @Order(3)
+  @DisplayName("03 - Testa caso de drone a ser adicionado já existir no DB.")
   void adicionarDroneExistente() throws Exception {
 
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
@@ -89,8 +98,8 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(3)
-  @DisplayName("03 - Testa o retorno da busca por id.")
+  @Order(4)
+  @DisplayName("04 - Testa o retorno da busca por id.")
   void buscarDronePorId() throws Exception {
 
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
@@ -104,13 +113,32 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(4)
-  @DisplayName("04 - Testa caso em que não é encontrado drone com o id informado.")
+  @Order(5)
+  @DisplayName("05 - Testa caso em que não é encontrado drone com o id informado.")
   void dronePorIdNotFound() throws Exception {
 
     mockMvc
       .perform(get("/drone/0").contentType(MediaType.APPLICATION_JSON))
       .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
-      .andExpect(status().isNotFound())    .andExpect(jsonPath("$.error").value("Drone não encontrado."));
+      .andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Drone não encontrado."));
+  }
+
+  @Test
+  @Order(6)
+  @DisplayName("06 - Testa se determinado drone foi atualizado.")
+  void atualizarDrone() throws Exception {
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+
+    droneRepository.save(newDrone);
+
+    mockMvc
+      .perform(put("/drone/" + newDrone.getId()).contentType(MediaType.APPLICATION_JSON)
+      .content(new ObjectMapper().writeValueAsString(newDrone)))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+      .andExpect(jsonPath("$.serialNumber").value(newDrone.getSerialNumber()))
+      .andExpect(jsonPath("$.latitude").value(newDrone.getLatitude()))
+      .andExpect(jsonPath("$.longitude").value(newDrone.getLongitude()))
+      .andExpect(jsonPath("$.operando").value(newDrone.isOperando()));
   }
 }

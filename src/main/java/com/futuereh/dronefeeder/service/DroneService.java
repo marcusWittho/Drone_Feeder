@@ -1,5 +1,6 @@
 package com.futuereh.dronefeeder.service;
 
+import com.futuereh.dronefeeder.commons.DroneBadRequest;
 import com.futuereh.dronefeeder.commons.DroneExistsException;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import com.futuereh.dronefeeder.dto.DroneDto;
@@ -33,6 +34,10 @@ public class DroneService {
       throw new DroneExistsException();
     }
 
+    if (droneDto.getSerialNumber().isEmpty()) {
+      throw new DroneBadRequest("SerialNumber não foi informado.");
+    }
+
     Drone newDrone = new Drone(droneDto.getSerialNumber(), droneDto.getLatitude(),
         droneDto.getLongitude(), droneDto.isOperando());
 
@@ -49,12 +54,49 @@ public class DroneService {
    */
   public Drone droneById(Integer id) {
 
-    Optional drone = repository.findById(id);
+    Optional<Drone> drone = repository.findById(id);
 
     if (drone.isEmpty()) {
       throw new DroneNotFoundException();
     }
 
-    return (Drone) drone.get();
+    return drone.get();
+  }
+
+  /**
+   * Método responsável por atualizar determinado drone.
+   *
+   * @param id - recebe o id do drone que será atualizado.
+   * @param droneDto - recebe as novas informações do drone.
+   * @return - retorna o drone com as informaçẽos atualizadas.
+   */
+  public Drone updateDrone(Integer id, DroneDto droneDto) {
+
+    Optional<Drone> toBeUpdated = repository.findById(id);
+
+    if (toBeUpdated.isEmpty()) {
+      throw new DroneNotFoundException();
+    }
+
+    if (droneDto.getSerialNumber().isEmpty()) {
+      throw new DroneBadRequest("SerialNumber não foi informado.");
+    }
+
+    if (droneDto.getLatitude() == 0) {
+      throw new DroneBadRequest("Latitude não foi informada.");
+    }
+
+    if (droneDto.getLongitude() == 0) {
+      throw new DroneBadRequest("Longitude não foi informada.");
+    }
+
+    toBeUpdated.get().setSerialNumber(droneDto.getSerialNumber());
+    toBeUpdated.get().setLatitude(droneDto.getLatitude());
+    toBeUpdated.get().setLongitude(droneDto.getLongitude());
+    toBeUpdated.get().setOperando(droneDto.isOperando());
+
+    repository.save(toBeUpdated.get());
+
+    return toBeUpdated.get();
   }
 }

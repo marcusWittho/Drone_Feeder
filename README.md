@@ -9,21 +9,9 @@
  - Acessar a pasta raiz do projeto
 
 
- - Subir o mysql com o docker
+ - Subir o mysql com o docker e criar o banco chamado drone.
  ```
     docker-compose up -d
- ```
-
- - Criar um banco chamado drone via terminal
- ```
-    // Executa o mysql criado a partir do docker
-    docker exec -it nome-do-container mysql -u root -p
-    
-    // Quando estiver dentro do mysql, basta criar o banco
-    create database drone;
-    
-    // Sair do mysql e voltar ao terminal
-    exit
  ```
 
  - Subir a aplicação
