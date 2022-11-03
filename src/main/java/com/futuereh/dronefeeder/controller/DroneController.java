@@ -30,7 +30,6 @@ public class DroneController {
   /**
    * Método responsável pelo endpoint que faz parte do fluxo de adição de uma novo drone.
    *
-   * @param drone - recebe as informações do drone que será adicionado ao DB.
    * @return - retorna uma String com as informações do drone adicionado ao DB.
    */
   @PostMapping("/add")

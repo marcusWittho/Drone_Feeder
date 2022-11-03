@@ -1,6 +1,10 @@
 package com.futuereh.dronefeeder.dto;
 
+import com.futuereh.dronefeeder.model.Entrega;
 import com.sun.istack.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Método DroneSto.
@@ -11,6 +15,8 @@ public class DroneDto {
   private double latitude;
   private double longitude;
   private boolean operando;
+
+  private List<Entrega> entregas = new ArrayList<>();
 
   public String getSerialNumber() {
     return serialNumber;
@@ -43,5 +49,13 @@ public class DroneDto {
 
   public void setOperando(boolean operando) {
     this.operando = operando;
+  }
+
+  public List<Entrega> getEntregas() {
+    return entregas;
+  }
+
+  public void setEntregas(List<Entrega> entregas) {
+    this.entregas = entregas;
   }
 }

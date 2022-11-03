@@ -1,10 +1,10 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.commons.DataError;
-import com.futuereh.dronefeeder.commons.DroneBadRequest;
+import com.futuereh.dronefeeder.commons.DroneBadRequestException;
 import com.futuereh.dronefeeder.commons.DroneExistsException;
+import com.futuereh.dronefeeder.commons.DroneUnexpectedErrorException;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
-import org.springframework.core.NestedCheckedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,11 +41,22 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneBadRequest.
    */
-  @ExceptionHandler({DroneBadRequest.class})
-  public ResponseEntity<DataError> handlerBadRequest(DroneBadRequest exception) {
+  @ExceptionHandler({DroneBadRequestException.class})
+  public ResponseEntity<DataError> handlerBadRequest(DroneBadRequestException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+  }
+
+  /**
+   * Captura exceções do tipo ErroInesperado.
+   */
+  @ExceptionHandler({DroneUnexpectedErrorException.class})
+  public ResponseEntity<DataError> handlerBadRequest(DroneUnexpectedErrorException exception) {
+
+    DataError error = new DataError(exception.getMessage());
+
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
   }
 }

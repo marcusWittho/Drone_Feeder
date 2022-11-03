@@ -2,6 +2,7 @@ package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futuereh.dronefeeder.model.Drone;
+import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;
@@ -53,7 +57,9 @@ public class DroneControllerTests {
   @DisplayName("01 - Testa a adição de novos drones ao DB.")
   void adicionarNovoDrone() throws Exception {
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
 
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
@@ -67,6 +73,7 @@ public class DroneControllerTests {
     assertThat(serieCaptor.getValue().getLatitude()).isEqualTo(newDrone.getLatitude());
     assertThat(serieCaptor.getValue().getLongitude()).isEqualTo(newDrone.getLongitude());
     assertThat(serieCaptor.getValue().isOperando()).isEqualTo(newDrone.isOperando());
+    assertThat(serieCaptor.getValue().getEntregas().size()).isEqualTo(newDrone.getEntregas().size());
   }
 
   @Test
@@ -74,7 +81,9 @@ public class DroneControllerTests {
   @DisplayName("02 - Testa adição de novo drone sem informar o serialNumber.")
   void adicionarNovoDroneSemSerialNumber() throws Exception {
 
-    Drone newDrone = new Drone("", -46.761107, -23.5747372, true);
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone("", -46.761107, -23.5747372, true, entregas);
 
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
@@ -84,10 +93,28 @@ public class DroneControllerTests {
 
   @Test
   @Order(3)
-  @DisplayName("03 - Testa caso de drone a ser adicionado já existir no DB.")
+  @DisplayName("03 - Testa caso de erro inesperado.")
+  void adicionarNovoDroneErroInesperado() throws Exception {
+
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone();
+
+    mockMvc
+      .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(newDrone)))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isInternalServerError()).andExpect(jsonPath("$.error").value("Erro inesperado."));
+  }
+
+  @Test
+  @Order(4)
+  @DisplayName("04 - Testa caso de drone a ser adicionado já existir no DB.")
   void adicionarDroneExistente() throws Exception {
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
 
     droneRepository.save(newDrone);
 
@@ -99,11 +126,13 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(4)
-  @DisplayName("04 - Testa o retorno da busca por id.")
+  @Order(5)
+  @DisplayName("05 - Testa o retorno da busca por id.")
   void buscarDronePorId() throws Exception {
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
 
     droneRepository.save(newDrone);
 
@@ -114,8 +143,8 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(5)
-  @DisplayName("05 - Testa caso em que não é encontrado drone com o id informado.")
+  @Order(6)
+  @DisplayName("06 - Testa caso em que não é encontrado drone com o id informado.")
   void dronePorIdNotFound() throws Exception {
 
     mockMvc
@@ -125,11 +154,13 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(6)
-  @DisplayName("06 - Testa se determinado drone foi atualizado.")
+  @Order(7)
+  @DisplayName("07 - Testa se determinado drone foi atualizado.")
   void atualizarDrone() throws Exception {
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
 
     droneRepository.save(newDrone);
 
@@ -144,11 +175,13 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(7)
-  @DisplayName("07 - Testa se a remoção do drone ocorreu com sucesso.")
+  @Order(8)
+  @DisplayName("08 - Testa se a remoção do drone ocorreu com sucesso.")
   void removeDrone() throws Exception {
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
 
     droneRepository.save(newDrone);
 
@@ -158,8 +191,8 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(8)
-  @DisplayName("08 - Testa a tentativa de remoção de um drone inexistente.")
+  @Order(9)
+  @DisplayName("09 - Testa a tentativa de remoção de um drone inexistente.")
   void droneNaoEncontradoParaRemocao() throws Exception {
 
     mockMvc

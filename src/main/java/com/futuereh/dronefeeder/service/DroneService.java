@@ -1,8 +1,9 @@
 package com.futuereh.dronefeeder.service;
 
-import com.futuereh.dronefeeder.commons.DroneBadRequest;
+import com.futuereh.dronefeeder.commons.DroneBadRequestException;
 import com.futuereh.dronefeeder.commons.DroneExistsException;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
+import com.futuereh.dronefeeder.commons.DroneUnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
@@ -30,20 +31,36 @@ public class DroneService {
    */
   public Drone addDrone(DroneDto droneDto) {
 
-    if (repository.existsBySerialNumber(droneDto.getSerialNumber())) {
-      throw new DroneExistsException();
+    try {
+      if (repository.existsBySerialNumber(droneDto.getSerialNumber())) {
+        throw new DroneExistsException();
+      }
+
+      if (droneDto.getSerialNumber().isEmpty()) {
+        throw new DroneBadRequestException("SerialNumber não foi informado.");
+      }
+
+      if (droneDto.getLatitude() == 0) {
+        throw new DroneBadRequestException("Latitude não foi informada.");
+      }
+
+      if (droneDto.getLongitude() == 0) {
+        throw new DroneBadRequestException("Longitude não foi informada.");
+      }
+
+      Drone newDrone = new Drone(droneDto.getSerialNumber(), droneDto.getLatitude(),
+          droneDto.getLongitude(), droneDto.isOperando(), droneDto.getEntregas());
+
+      this.repository.save(newDrone);
+
+      return newDrone;
+    } catch (DroneExistsException err) {
+      throw err;
+    } catch (DroneBadRequestException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new DroneUnexpectedErrorException();
     }
-
-    if (droneDto.getSerialNumber().isEmpty()) {
-      throw new DroneBadRequest("SerialNumber não foi informado.");
-    }
-
-    Drone newDrone = new Drone(droneDto.getSerialNumber(), droneDto.getLatitude(),
-        droneDto.getLongitude(), droneDto.isOperando());
-
-    this.repository.save(newDrone);
-
-    return newDrone;
   }
 
   /**
@@ -54,13 +71,19 @@ public class DroneService {
    */
   public Drone droneById(Integer id) {
 
-    Optional<Drone> drone = repository.findById(id);
+    try {
+      Optional<Drone> drone = repository.findById(id);
 
-    if (drone.isEmpty()) {
-      throw new DroneNotFoundException();
+      if (drone.isEmpty()) {
+        throw new DroneNotFoundException();
+      }
+
+      return drone.get();
+    } catch (DroneNotFoundException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new DroneUnexpectedErrorException();
     }
-
-    return drone.get();
   }
 
   /**
@@ -72,32 +95,41 @@ public class DroneService {
    */
   public Drone updateDrone(Integer id, DroneDto droneDto) {
 
-    Optional<Drone> toBeUpdated = repository.findById(id);
+    try {
 
-    if (toBeUpdated.isEmpty()) {
-      throw new DroneNotFoundException();
+      Optional<Drone> toBeUpdated = repository.findById(id);
+
+      if (toBeUpdated.isEmpty()) {
+        throw new DroneNotFoundException();
+      }
+
+      if (droneDto.getSerialNumber().isEmpty()) {
+        throw new DroneBadRequestException("SerialNumber não foi informado.");
+      }
+
+      if (droneDto.getLatitude() == 0) {
+        throw new DroneBadRequestException("Latitude não foi informada.");
+      }
+
+      if (droneDto.getLongitude() == 0) {
+        throw new DroneBadRequestException("Longitude não foi informada.");
+      }
+
+      toBeUpdated.get().setSerialNumber(droneDto.getSerialNumber());
+      toBeUpdated.get().setLatitude(droneDto.getLatitude());
+      toBeUpdated.get().setLongitude(droneDto.getLongitude());
+      toBeUpdated.get().setOperando(droneDto.isOperando());
+
+      repository.save(toBeUpdated.get());
+
+      return toBeUpdated.get();
+    } catch (DroneNotFoundException err) {
+      throw err;
+    } catch (DroneBadRequestException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new DroneUnexpectedErrorException();
     }
-
-    if (droneDto.getSerialNumber().isEmpty()) {
-      throw new DroneBadRequest("SerialNumber não foi informado.");
-    }
-
-    if (droneDto.getLatitude() == 0) {
-      throw new DroneBadRequest("Latitude não foi informada.");
-    }
-
-    if (droneDto.getLongitude() == 0) {
-      throw new DroneBadRequest("Longitude não foi informada.");
-    }
-
-    toBeUpdated.get().setSerialNumber(droneDto.getSerialNumber());
-    toBeUpdated.get().setLatitude(droneDto.getLatitude());
-    toBeUpdated.get().setLongitude(droneDto.getLongitude());
-    toBeUpdated.get().setOperando(droneDto.isOperando());
-
-    repository.save(toBeUpdated.get());
-
-    return toBeUpdated.get();
   }
 
   /**
@@ -107,12 +139,18 @@ public class DroneService {
    */
   public void removeDrone(Integer id) {
 
-    Optional<Drone> toBeDeleted = repository.findById(id);
+    try {
+      Optional<Drone> toBeDeleted = repository.findById(id);
 
-    if (toBeDeleted.isEmpty()) {
-      throw new DroneNotFoundException();
+      if (toBeDeleted.isEmpty()) {
+        throw new DroneNotFoundException();
+      }
+
+      repository.deleteById(id);
+    } catch (DroneNotFoundException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new DroneUnexpectedErrorException();
     }
-
-    repository.deleteById(id);
   }
 }
