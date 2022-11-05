@@ -11,13 +11,13 @@ public class EntregaDto {
 
   private String cep;
 
-  private String rua;
+  private String endereco;
 
   private Integer num;
 
   private String destinatario;
 
-  private Date data;
+  private String data;
 
   private boolean status;
 
@@ -37,12 +37,12 @@ public class EntregaDto {
     this.cep = cep;
   }
 
-  public String getRua() {
-    return rua;
+  public String getEndereco() {
+    return endereco;
   }
 
-  public void setRua(String rua) {
-    this.rua = rua;
+  public void setEndereco(String endereco) {
+    this.endereco = endereco;
   }
 
   public Integer getNum() {
@@ -61,11 +61,11 @@ public class EntregaDto {
     this.destinatario = destinatario;
   }
 
-  public Date getData() {
+  public String getData() {
     return data;
   }
 
-  public void setData(Date data) {
+  public void setData(String data) {
     this.data = data;
   }
 

@@ -28,7 +28,7 @@ public class DroneController {
   }
 
   /**
-   * Método responsável pelo endpoint que faz parte do fluxo de adição de uma novo drone.
+   * Método responsável pelo endpoint que faz parte do fluxo de adição de um novo drone.
    *
    * @return - retorna uma String com as informações do drone adicionado ao DB.
    */

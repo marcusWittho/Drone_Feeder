@@ -3,7 +3,7 @@ package com.futuereh.dronefeeder.service;
 import com.futuereh.dronefeeder.commons.DroneBadRequestException;
 import com.futuereh.dronefeeder.commons.DroneExistsException;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
-import com.futuereh.dronefeeder.commons.DroneUnexpectedErrorException;
+import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
@@ -59,7 +59,7 @@ public class DroneService {
     } catch (DroneBadRequestException err) {
       throw err;
     } catch (Exception err) {
-      throw new DroneUnexpectedErrorException();
+      throw new UnexpectedErrorException();
     }
   }
 
@@ -82,7 +82,7 @@ public class DroneService {
     } catch (DroneNotFoundException err) {
       throw err;
     } catch (Exception err) {
-      throw new DroneUnexpectedErrorException();
+      throw new UnexpectedErrorException();
     }
   }
 
@@ -128,7 +128,7 @@ public class DroneService {
     } catch (DroneBadRequestException err) {
       throw err;
     } catch (Exception err) {
-      throw new DroneUnexpectedErrorException();
+      throw new UnexpectedErrorException();
     }
   }
 
@@ -150,7 +150,7 @@ public class DroneService {
     } catch (DroneNotFoundException err) {
       throw err;
     } catch (Exception err) {
-      throw new DroneUnexpectedErrorException();
+      throw new UnexpectedErrorException();
     }
   }
 }

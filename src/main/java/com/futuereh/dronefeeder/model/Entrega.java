@@ -24,13 +24,13 @@ public class Entrega {
 
   private String cep;
 
-  private String rua;
+  private String endereco;
 
   private Integer num;
 
   private String destinatario;
 
-  private Date data;
+  private String data;
 
   private boolean status;
 
@@ -43,17 +43,16 @@ public class Entrega {
   /**
    * Contrutor da classe Entrega. Recebe como parâmetros 7 informações referentes a entrage.
    */
-  public Entrega(String bairro, String cep, String rua, Integer num,
-                 String destinatario, Date data, boolean status, Drone drone) {
+  public Entrega(String bairro, String cep, String endereco, Integer num,
+                 String destinatario, String data, boolean status) {
 
     this.bairro = bairro;
     this.cep = cep;
-    this.rua = rua;
+    this.endereco = endereco;
     this.num = num;
     this.destinatario = destinatario;
     this.data = data;
     this.status = status;
-    this.drone = drone;
   }
 
   public Integer getId() {
@@ -76,12 +75,12 @@ public class Entrega {
     this.cep = cep;
   }
 
-  public String getRua() {
-    return rua;
+  public String getEndereco() {
+    return endereco;
   }
 
-  public void setRua(String rua) {
-    this.rua = rua;
+  public void setEndereco(String endereco) {
+    this.endereco = endereco;
   }
 
   public Integer getNum() {
@@ -100,11 +99,11 @@ public class Entrega {
     this.destinatario = destinatario;
   }
 
-  public Date getData() {
+  public String getData() {
     return data;
   }
 
-  public void setData(Date data) {
+  public void setData(String data) {
     this.data = data;
   }
 
