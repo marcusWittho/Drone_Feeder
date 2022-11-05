@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Drone {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   private String serialNumber;
@@ -27,7 +27,7 @@ public class Drone {
   private boolean operando;
 
   @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Entrega> entregas = new ArrayList<>();
+  private List<Entrega> entregas;
 
   /**
    * Construtor da classe Drone.
@@ -36,16 +36,14 @@ public class Drone {
    * @param longitude - recebe a longitude atual do drone.
    * @param operando - recebe true caso o drone esteja realizando alguma entrega
    *     e falso se estiver ocioso.
-   * @param entregas - Lista com as entregas que serão realizadas.
    */
-  public Drone(String serialNumber, double latitude, double longitude,
-               boolean operando, List<Entrega> entregas) {
+  public Drone(String serialNumber, double latitude, double longitude, boolean operando) {
 
     this.serialNumber = serialNumber;
     this.latitude = latitude;
     this.longitude = longitude;
     this.operando = operando;
-    this.entregas = entregas;
+    this.entregas = new ArrayList<>();
   }
 
   public Drone() {}
@@ -92,5 +90,9 @@ public class Drone {
 
   public void setEntregas(List<Entrega> entregas) {
     this.entregas = entregas;
+  }
+
+  public void addEntrega(Entrega entrega) {
+    this.entregas.add(entrega);
   }
 }

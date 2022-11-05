@@ -4,8 +4,6 @@ import com.futuereh.dronefeeder.model.Drone;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * Interface responsável por ceder os métodos necessários para manipulação do DB.
  */

@@ -1,6 +1,6 @@
 package com.futuereh.dronefeeder.dto;
 
-import java.util.Date;
+import com.futuereh.dronefeeder.model.Drone;
 
 /**
  * Métodd EntregaDto.
@@ -20,6 +20,8 @@ public class EntregaDto {
   private String data;
 
   private boolean status;
+
+  private Drone drone;
 
   public String getBairro() {
     return bairro;
@@ -75,5 +77,13 @@ public class EntregaDto {
 
   public void setStatus(boolean status) {
     this.status = status;
+  }
+
+  public Drone getDrone() {
+    return drone;
+  }
+
+  public void setDrone(Drone drone) {
+    this.drone = drone;
   }
 }

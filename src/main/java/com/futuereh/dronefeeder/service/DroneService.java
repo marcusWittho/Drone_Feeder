@@ -8,7 +8,6 @@ import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,7 +53,7 @@ public class DroneService {
       }
 
       Drone newDrone = new Drone(droneDto.getSerialNumber(), droneDto.getLatitude(),
-          droneDto.getLongitude(), droneDto.isOperando(), droneDto.getEntregas());
+          droneDto.getLongitude(), droneDto.isOperando());
 
       this.repository.save(newDrone);
 

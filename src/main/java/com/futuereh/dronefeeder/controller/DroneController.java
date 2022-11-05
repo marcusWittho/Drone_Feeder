@@ -45,9 +45,9 @@ public class DroneController {
    * @return - retorna o drone referente ao id recebido por parâmetro.
    */
   @GetMapping("/{id}")
-  public ResponseEntity droneById(@PathVariable(value = "id") Integer id) {
+  public ResponseEntity droneById(@PathVariable(value = "id") String id) {
 
-    return ResponseEntity.status(HttpStatus.OK).body(service.droneById(id));
+    return ResponseEntity.status(HttpStatus.OK).body(service.droneById(Integer.parseInt(id)));
   }
 
   /**

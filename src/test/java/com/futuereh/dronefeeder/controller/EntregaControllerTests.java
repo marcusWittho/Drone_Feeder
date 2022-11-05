@@ -3,6 +3,7 @@ package com.futuereh.dronefeeder.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futuereh.dronefeeder.commons.EntregaExistsException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
+import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.EntregaRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -37,7 +38,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EntregaControllerTests {
 
-  private Entrega newEntrega = new Entrega();
+  private Entrega newEntrega;
+  private Drone newDrone;
 
   @Autowired
   private MockMvc mockMvc;
@@ -80,6 +82,8 @@ public class EntregaControllerTests {
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(newEntrega)));
+
+    entregaRepository.save(newEntrega);
 
     verify(entregaRepository, atLeast(1)).save(serieCaptor.capture());
 

@@ -1,12 +1,17 @@
 package com.futuereh.dronefeeder.service;
 
+import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import com.futuereh.dronefeeder.commons.EntregaExistsException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.EntregaDto;
+import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
+import com.futuereh.dronefeeder.repository.DroneRepository;
 import com.futuereh.dronefeeder.repository.EntregaRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,10 +20,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class EntregaService {
 
+  private List<Drone> drones;
+
   private EntregaRepository entregaRepository;
 
-  public EntregaService(EntregaRepository entregaRepository) {
+  private DroneService droneService;
+
+  private DroneRepository droneRepository;
+
+  /**
+   * Injeção de dependências.
+   */
+  public EntregaService(EntregaRepository entregaRepository, DroneService droneService,
+                        DroneRepository droneRepository) {
     this.entregaRepository = entregaRepository;
+    this.droneService = droneService;
+    this.droneRepository = droneRepository;
   }
 
   /**
@@ -32,6 +49,12 @@ public class EntregaService {
     try {
       if (entregaRepository.existsByDestinatario(entregaDto.getDestinatario())) {
         throw new EntregaExistsException();
+      }
+
+      drones = droneService.droneByStatusFalse();
+
+      if (drones.isEmpty()) {
+        throw new DroneNotFoundException();
       }
 
       String formatData = "dd/MM/yyyy";
@@ -53,10 +76,17 @@ public class EntregaService {
           entregaDto.getEndereco(), entregaDto.getNum(), entregaDto.getDestinatario(),
           entregaDto.getData(), entregaDto.isStatus());
 
-      this.entregaRepository.save(newEntrega);
+      drones.get(0).setOperando(true);
+
+      newEntrega.setDrone(drones.get(0));
+      drones.get(0).addEntrega(newEntrega);
+
+      droneRepository.save(drones.get(0));
 
       return newEntrega;
     } catch (EntregaExistsException err) {
+      throw err;
+    } catch (DroneNotFoundException err) {
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();

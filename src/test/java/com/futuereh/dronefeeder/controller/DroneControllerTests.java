@@ -2,7 +2,6 @@ package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
-import com.futuereh.dronefeeder.commons.EntregaExistsException;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.DroneRepository;
@@ -60,9 +59,9 @@ public class DroneControllerTests {
   @DisplayName("01 - Testa a adição de novos drones ao DB.")
   void adicionarNovoDrone() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
@@ -84,9 +83,9 @@ public class DroneControllerTests {
   @DisplayName("02 - Testa adição de novo drone sem informar o serialNumber.")
   void adicionarNovoDroneSemSerialNumber() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone = new Drone("", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone = new Drone("", -46.761107, -23.5747372, true);
 
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
@@ -99,7 +98,7 @@ public class DroneControllerTests {
   @DisplayName("03 - Testa caso de erro inesperado.")
   void adicionarNovoDroneErroInesperado() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
     Drone newDrone = new Drone();
 
@@ -115,9 +114,9 @@ public class DroneControllerTests {
   @DisplayName("04 - Testa caso de drone a ser adicionado já existir no DB.")
   void adicionarDroneExistente() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     droneRepository.save(newDrone);
 
@@ -133,9 +132,9 @@ public class DroneControllerTests {
   @DisplayName("05 - Testa o retorno da busca por id.")
   void buscarDronePorId() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     droneRepository.save(newDrone);
 
@@ -161,10 +160,10 @@ public class DroneControllerTests {
   @DisplayName("07 - Testa retorno de drones com status false.")
   void dronesLivres() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, false, entregas);
-    Drone newDrone_2 = new Drone("A200", -46.761107, -23.5747372, false, entregas);
+    Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, false);
+    Drone newDrone_2 = new Drone("A200", -46.761107, -23.5747372, false);
 
     droneRepository.save(newDrone_1);
     droneRepository.save(newDrone_2);
@@ -181,9 +180,9 @@ public class DroneControllerTests {
   @DisplayName("08 - Testa retorno de drones com status false não existirem.")
   void dronesLivresInexistentes() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, true);
 
     droneRepository.save(newDrone_1);
 
@@ -201,9 +200,9 @@ public class DroneControllerTests {
   @DisplayName("09 - Testa se determinado drone foi atualizado.")
   void atualizarDrone() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     droneRepository.save(newDrone);
 
@@ -222,9 +221,9 @@ public class DroneControllerTests {
   @DisplayName("10 - Testa se a remoção do drone ocorreu com sucesso.")
   void removeDrone() throws Exception {
 
-    List<Entrega> entregas = new ArrayList<>();
+//    List<Entrega> entregas = new ArrayList<>();
 
-    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+    Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     droneRepository.save(newDrone);
 

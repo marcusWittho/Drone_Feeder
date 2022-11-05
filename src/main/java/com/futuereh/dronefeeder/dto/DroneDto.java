@@ -58,4 +58,8 @@ public class DroneDto {
   public void setEntregas(List<Entrega> entregas) {
     this.entregas = entregas;
   }
+
+  public void addEntrega(Entrega entrega) {
+    this.entregas.add(entrega);
+  }
 }

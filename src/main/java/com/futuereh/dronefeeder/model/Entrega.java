@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.model;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 public class Entrega {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   private String bairro;
@@ -34,6 +35,7 @@ public class Entrega {
 
   private boolean status;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "drone_id")
   private Drone drone;
