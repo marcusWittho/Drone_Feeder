@@ -51,6 +51,17 @@ public class DroneController {
   }
 
   /**
+   * Método responsável por buscar drones desocupados.
+   *
+   * @return - retorna uma lista de drones.
+   */
+  @GetMapping("/livre")
+  public ResponseEntity droneByStatus() {
+
+    return ResponseEntity.status(HttpStatus.OK).body(service.droneByStatusFalse());
+  }
+
+  /**
    * Método responsável por atualizar determinado drone.
    *
    * @param id - recebe o id do drone que será atualizado.

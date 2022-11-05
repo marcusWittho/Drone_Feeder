@@ -1,6 +1,8 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.futuereh.dronefeeder.commons.DroneNotFoundException;
+import com.futuereh.dronefeeder.commons.EntregaExistsException;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.DroneRepository;
@@ -25,6 +27,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -155,7 +158,47 @@ public class DroneControllerTests {
 
   @Test
   @Order(7)
-  @DisplayName("07 - Testa se determinado drone foi atualizado.")
+  @DisplayName("07 - Testa retorno de drones com status false.")
+  void dronesLivres() throws Exception {
+
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, false, entregas);
+    Drone newDrone_2 = new Drone("A200", -46.761107, -23.5747372, false, entregas);
+
+    droneRepository.save(newDrone_1);
+    droneRepository.save(newDrone_2);
+
+    mockMvc
+      .perform(get("/drone/livre").contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+      .andExpect(jsonPath("$[0].serialNumber").value(newDrone_1.getSerialNumber()))
+      .andExpect(jsonPath("$[1].serialNumber").value(newDrone_2.getSerialNumber()));
+  }
+
+  @Test
+  @Order(8)
+  @DisplayName("08 - Testa retorno de drones com status false não existirem.")
+  void dronesLivresInexistentes() throws Exception {
+
+    List<Entrega> entregas = new ArrayList<>();
+
+    Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, true, entregas);
+
+    droneRepository.save(newDrone_1);
+
+    when(get("/drone/livre")
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(new ObjectMapper().writeValueAsString(newDrone_1)))
+      .thenThrow(DroneNotFoundException.class);
+
+    mockMvc
+      .perform(get("/drone/livre").contentType(MediaType.APPLICATION_JSON));
+  }
+
+  @Test
+  @Order(9)
+  @DisplayName("09 - Testa se determinado drone foi atualizado.")
   void atualizarDrone() throws Exception {
 
     List<Entrega> entregas = new ArrayList<>();
@@ -175,8 +218,8 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(8)
-  @DisplayName("08 - Testa se a remoção do drone ocorreu com sucesso.")
+  @Order(10)
+  @DisplayName("10 - Testa se a remoção do drone ocorreu com sucesso.")
   void removeDrone() throws Exception {
 
     List<Entrega> entregas = new ArrayList<>();
@@ -191,8 +234,8 @@ public class DroneControllerTests {
   }
 
   @Test
-  @Order(9)
-  @DisplayName("09 - Testa a tentativa de remoção de um drone inexistente.")
+  @Order(11)
+  @DisplayName("11 - Testa a tentativa de remoção de um drone inexistente.")
   void droneNaoEncontradoParaRemocao() throws Exception {
 
     mockMvc

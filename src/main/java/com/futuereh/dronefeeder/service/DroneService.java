@@ -7,7 +7,12 @@ import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -79,6 +84,32 @@ public class DroneService {
       }
 
       return drone.get();
+    } catch (DroneNotFoundException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new UnexpectedErrorException();
+    }
+  }
+
+  /**
+   * Método responsável por obter os drones pelo status.
+   *
+   * @return - retorna uma lista de drones.
+   */
+  public List<Drone> droneByStatusFalse() {
+
+    try {
+      List<Drone> drones = repository.findAll();
+
+      List<Drone> dronesLivres = drones.stream()
+        .filter(drone -> !drone.isOperando())
+        .collect(Collectors.toList());
+
+      if (dronesLivres.isEmpty()) {
+        throw new DroneNotFoundException();
+      }
+
+      return dronesLivres;
     } catch (DroneNotFoundException err) {
       throw err;
     } catch (Exception err) {
