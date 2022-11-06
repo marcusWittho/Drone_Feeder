@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import com.futuereh.dronefeeder.commons.EntregaExistsException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.model.Drone;
@@ -30,8 +31,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EntregaControllerTests {
 
   private Entrega newEntrega;
+
   private Drone newDrone;
 
   @Autowired
@@ -182,5 +186,57 @@ public class EntregaControllerTests {
       .perform(get("/entrega/0").contentType(MediaType.APPLICATION_JSON))
       .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
       .andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Entrega não encontrada."));
+  }
+
+  @Test
+  @Order(8)
+  @DisplayName("08 - Testa se determinada entrega foi atualizada.")
+  void atualizarEntrega() throws Exception {
+
+    newEntrega.setDestinatario("destinatário_updated");
+
+    entregaRepository.save(newEntrega);
+
+    mockMvc
+      .perform(put("/entrega/" + newEntrega.getId()).contentType(MediaType.APPLICATION_JSON)
+      .content(new ObjectMapper().writeValueAsString(newEntrega)))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isOk())
+      .andExpect(jsonPath("$.destinatario").value(newEntrega.getDestinatario()));
+  }
+
+  @Test
+  @Order(9)
+  @DisplayName("09 - Testa caso de não encontrar a entrega à ser atualizada.")
+  void exceptionAoAtualizarEntrega() throws Exception {
+
+    mockMvc
+      .perform(put("/entrega/0").contentType(MediaType.APPLICATION_JSON)
+      .content(new ObjectMapper().writeValueAsString(newEntrega)))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
+      .andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Entrega não encontrada."));
+  }
+
+  @Test
+  @Order(10)
+  @DisplayName("10 - Testa a remoção de determinada entrega.")
+  void removeEntrega() throws Exception {
+
+    entregaRepository.save(newEntrega);
+
+    mockMvc
+      .perform(delete("/entrega/" + newEntrega.getId()))
+      .andExpect(status().isOk());
+  }
+
+  @Test
+  @Order(11)
+  @DisplayName("11 - Testa a tentativa de remoção de uma entrega inexistente.")
+  void entregaNaoEncontradoParaRemocao() throws Exception {
+
+    mockMvc
+      .perform(delete("/entrega/0"))
+      .andExpect(status().isNotFound())
+      .andExpect(jsonPath("$.error").value("Entrega não encontrada."));
   }
 }

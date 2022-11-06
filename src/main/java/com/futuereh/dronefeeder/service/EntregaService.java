@@ -130,4 +130,61 @@ public class EntregaService {
       throw new UnexpectedErrorException();
     }
   }
+
+  /**
+   * Método responsável por atualizar determinada entrega.
+   *
+   * @param id - recebe o id da entrega que será atualizada.
+   * @param entregaDto - recebe as novas informações da entrega.
+   * @return - retorna a entrega com as informaçẽos atualizadas.
+   */
+  public Entrega updateentrega(Integer id, EntregaDto entregaDto) {
+
+    try {
+
+      Optional<Entrega> toBeUpdated = entregaRepository.findById(id);
+
+      if (toBeUpdated.isEmpty()) {
+        throw new EntregaNotFoundException();
+      }
+
+      toBeUpdated.get().setBairro(entregaDto.getBairro());
+      toBeUpdated.get().setCep(entregaDto.getCep());
+      toBeUpdated.get().setEndereco(entregaDto.getEndereco());
+      toBeUpdated.get().setNum(entregaDto.getNum());
+      toBeUpdated.get().setDestinatario(entregaDto.getDestinatario());
+      toBeUpdated.get().setData(entregaDto.getData());
+      toBeUpdated.get().setStatus(entregaDto.isStatus());
+
+      entregaRepository.save(toBeUpdated.get());
+
+      return toBeUpdated.get();
+    } catch (EntregaNotFoundException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new UnexpectedErrorException();
+    }
+  }
+
+  /**
+   * Método responsável por remover determinada entrega.
+   *
+   * @param id - recebe o id da entrega que será removida.
+   */
+  public void removeEntrega(Integer id) {
+
+    try {
+      Optional<Entrega> toBeDeleted = entregaRepository.findById(id);
+
+      if (toBeDeleted.isEmpty()) {
+        throw new EntregaNotFoundException();
+      }
+
+      entregaRepository.deleteById(id);
+    } catch (EntregaNotFoundException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new UnexpectedErrorException();
+    }
+  }
 }
