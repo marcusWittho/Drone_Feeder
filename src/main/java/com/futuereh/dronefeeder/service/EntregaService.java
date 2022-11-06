@@ -2,6 +2,7 @@ package com.futuereh.dronefeeder.service;
 
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import com.futuereh.dronefeeder.commons.EntregaExistsException;
+import com.futuereh.dronefeeder.commons.EntregaNotFoundException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.EntregaDto;
 import com.futuereh.dronefeeder.model.Drone;
@@ -11,6 +12,7 @@ import com.futuereh.dronefeeder.repository.EntregaRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -103,6 +105,29 @@ public class EntregaService {
       return entregas;
     } catch (Exception err) {
       throw err;
+    }
+  }
+
+  /**
+   * Método responsável por retornar uma entrega de acordo com o id informado por parâmetro.
+   *
+   * @param id - recebe o id referente à entrega que será objeto da busca.
+   * @return - retorna uma entrega de acordo com o id informado.
+   */
+  public Entrega entregaById(Integer id) {
+
+    try {
+      Optional<Entrega> entrega = entregaRepository.findById(id);
+
+      if (entrega.isEmpty()) {
+        throw new EntregaNotFoundException();
+      }
+
+      return entrega.get();
+    } catch (EntregaNotFoundException err) {
+      throw err;
+    } catch (Exception err) {
+      throw new UnexpectedErrorException();
     }
   }
 }

@@ -5,6 +5,7 @@ import com.futuereh.dronefeeder.service.EntregaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +44,17 @@ public class EntregaController {
   public ResponseEntity entregasList() {
 
     return ResponseEntity.status(HttpStatus.OK).body(entregaService.entregasList());
+  }
+
+  /**
+   * Método responsável por buscar determinada entrega pelo id indicado.
+   *
+   * @param id - recebe o id da entrega a ser consultada.
+   * @return - retorna a entrega referente ao id recebido por parâmetro.
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity entregaById(@PathVariable(value = "id") Integer id) {
+
+    return ResponseEntity.status(HttpStatus.OK).body(entregaService.entregaById(id));
   }
 }

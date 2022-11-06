@@ -159,4 +159,28 @@ public class EntregaControllerTests {
       .perform(get("/entrega/all").contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(newEntrega)));
   }
+
+  @Test
+  @Order(6)
+  @DisplayName("06 - Testa retorno de busca de entrega pelo id.")
+  void buscaEntregaPorId() throws Exception {
+
+    entregaRepository.save(newEntrega);
+
+    mockMvc
+      .perform(get("/entrega/" + newEntrega.getId()).contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+      .andExpect(jsonPath("$.destinatario").value(newEntrega.getDestinatario()));
+  }
+
+  @Test
+  @Order(7)
+  @DisplayName("07 - Testa caso em que a entrega não é encontrada.")
+  void entregaPoprIdNaoEncontrada() throws Exception {
+
+    mockMvc
+      .perform(get("/entrega/0").contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
+      .andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Entrega não encontrada."));
+  }
 }

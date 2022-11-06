@@ -4,6 +4,7 @@ import com.futuereh.dronefeeder.commons.DataError;
 import com.futuereh.dronefeeder.commons.DroneBadRequestException;
 import com.futuereh.dronefeeder.commons.DroneExistsException;
 import com.futuereh.dronefeeder.commons.EntregaExistsException;
+import com.futuereh.dronefeeder.commons.EntregaNotFoundException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -70,5 +71,16 @@ public class AdviceManager {
     DataError error = new DataError(exception.getMessage());
 
     return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+  }
+
+  /**
+   * Captura exceções do tipo DroneNotFoundException.
+   */
+  @ExceptionHandler({EntregaNotFoundException.class})
+  public ResponseEntity<DataError> handlerNotFound(EntregaNotFoundException exception) {
+
+    DataError error = new DataError(exception.getMessage());
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
   }
 }
