@@ -4,6 +4,7 @@ import com.futuereh.dronefeeder.dto.EntregaDto;
 import com.futuereh.dronefeeder.service.EntregaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +34,14 @@ public class EntregaController {
   public ResponseEntity addEntrega(@RequestBody EntregaDto entregaDto) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(entregaService.addEntrega(entregaDto));
+  }
+
+  /**
+   * Método responsável por listar as entregas.
+   */
+  @GetMapping("/all")
+  public ResponseEntity entregasList() {
+
+    return ResponseEntity.status(HttpStatus.OK).body(entregaService.entregasList());
   }
 }

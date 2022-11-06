@@ -11,7 +11,6 @@ import com.futuereh.dronefeeder.repository.EntregaRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 /**
@@ -80,16 +79,30 @@ public class EntregaService {
 
       newEntrega.setDrone(drones.get(0));
       drones.get(0).addEntrega(newEntrega);
-
       droneRepository.save(drones.get(0));
 
       return newEntrega;
     } catch (EntregaExistsException err) {
       throw err;
     } catch (DroneNotFoundException err) {
+
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();
+    }
+  }
+
+  /**
+   * Método responsável por listar todas as entregas.
+   */
+  public List<Entrega> entregasList() {
+
+    try {
+      List<Entrega> entregas = entregaRepository.findAll();
+
+      return entregas;
+    } catch (Exception err) {
+      throw err;
     }
   }
 }

@@ -3,7 +3,6 @@ package com.futuereh.dronefeeder.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futuereh.dronefeeder.commons.DroneNotFoundException;
 import com.futuereh.dronefeeder.model.Drone;
-import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,9 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;

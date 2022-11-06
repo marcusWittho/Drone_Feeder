@@ -30,7 +30,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -125,6 +129,34 @@ public class EntregaControllerTests {
 
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(newEntrega)));
+  }
+
+  @Test
+  @Order(4)
+  @DisplayName("04 - Testa se retorno da lista acontece com sucesso.")
+  void deveRetornarUmaListaDeEntregas() throws Exception {
+
+    entregaRepository.save(newEntrega);
+
+    mockMvc
+      .perform(get("/entrega/all").contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+      .andExpect(jsonPath("$[0].destinatario").value(newEntrega.getDestinatario()));
+  }
+
+  @Test
+  @Order(5)
+  @DisplayName("05 - Testa lançamento do erro inesperado ao tentar listar as entregas.")
+  void deveRetornarUnexpectedErrorExceptionAoTentarListarEntregas() throws Exception {
+
+    when(get("/entrega/all")
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(new ObjectMapper().writeValueAsString(newEntrega)))
+      .thenThrow(UnexpectedErrorException.class);
+
+    mockMvc
+      .perform(get("/entrega/all").contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(newEntrega)));
   }
 }
