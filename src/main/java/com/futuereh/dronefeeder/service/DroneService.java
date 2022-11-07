@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Service;
 public class DroneService {
 
   private DroneRepository repository;
+
+  private final Logger logger = Logger.getLogger(DroneService.class);
 
   public DroneService(DroneRepository repository) {
 
@@ -59,10 +62,13 @@ public class DroneService {
 
       return newDrone;
     } catch (ExistsException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (BadRequestException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -84,8 +90,10 @@ public class DroneService {
 
       return drone.get();
     } catch (NotFoundException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -110,8 +118,10 @@ public class DroneService {
 
       return dronesLivres;
     } catch (NotFoundException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -154,10 +164,13 @@ public class DroneService {
 
       return toBeUpdated.get();
     } catch (NotFoundException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (BadRequestException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -178,8 +191,10 @@ public class DroneService {
 
       repository.deleteById(id);
     } catch (NotFoundException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw new UnexpectedErrorException();
     }
   }

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,6 +28,8 @@ public class EntregaService {
   private DroneService droneService;
 
   private DroneRepository droneRepository;
+
+  private final Logger logger = Logger.getLogger(EntregaService.class);
 
   /**
    * Injeção de dependências.
@@ -48,12 +51,14 @@ public class EntregaService {
 
     try {
       if (entregaRepository.existsByDestinatario(entregaDto.getDestinatario())) {
+
         throw new ExistsException("Entrega já está cadastrada.");
       }
 
       drones = droneService.droneByStatusFalse();
 
       if (drones.isEmpty()) {
+
         throw new NotFoundException("Drone não encontrado.");
       }
 
@@ -84,11 +89,13 @@ public class EntregaService {
 
       return newEntrega;
     } catch (ExistsException err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (NotFoundException err) {
-
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -103,6 +110,7 @@ public class EntregaService {
 
       return entregas;
     } catch (Exception err) {
+      logger.warn("Error Message: " + err.getMessage());
       throw err;
     }
   }
@@ -124,8 +132,10 @@ public class EntregaService {
 
       return entrega.get();
     } catch (NotFoundException err) {
+      logger.warn(err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn(err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -159,8 +169,10 @@ public class EntregaService {
 
       return toBeUpdated.get();
     } catch (NotFoundException err) {
+      logger.warn(err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn(err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
@@ -181,8 +193,10 @@ public class EntregaService {
 
       entregaRepository.deleteById(id);
     } catch (NotFoundException err) {
+      logger.warn(err.getMessage());
       throw err;
     } catch (Exception err) {
+      logger.warn(err.getMessage());
       throw new UnexpectedErrorException();
     }
   }
