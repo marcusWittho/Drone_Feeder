@@ -1,13 +1,12 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.futuereh.dronefeeder.commons.DroneNotFoundException;
-import com.futuereh.dronefeeder.commons.EntregaExistsException;
+import com.futuereh.dronefeeder.commons.ExistsException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
+import com.futuereh.dronefeeder.repository.DroneRepository;
 import com.futuereh.dronefeeder.repository.EntregaRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -45,37 +44,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EntregaControllerTests {
 
-  private Entrega newEntrega;
-
-  private Drone newDrone;
-
   @Autowired
   private MockMvc mockMvc;
 
   @SpyBean
   private EntregaRepository entregaRepository;
 
+  @SpyBean
+  private DroneRepository droneRepository;
+
   @Captor
   private ArgumentCaptor<Entrega> serieCaptor;
 
-  @BeforeAll
-  public void initialSetup() {
+  String formatData = "dd/MM/yyyy";
 
-    String formatData = "dd/MM/yyyy";
+  DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern(formatData);
 
-    DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern(formatData);
+  String formatHora = "HH:mm:ss";
 
-    String formatHora = "HH:mm:ss";
+  DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern(formatHora);
 
-    DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern(formatHora);
+  LocalDateTime horaPrimeiraRefeicao = LocalDateTime.now();
 
-    LocalDateTime horaPrimeiraRefeicao = LocalDateTime.now();
-
-    String dataEntrega = formatadorData.format(horaPrimeiraRefeicao) + " - " + formatadorHora.format(horaPrimeiraRefeicao);
-
-    newEntrega = new Entrega("bairro", "cep", "rua", 1,
-      "destinatario", dataEntrega, false);
-  }
+  String dataEntrega = formatadorData.format(horaPrimeiraRefeicao) + " - " + formatadorHora.format(horaPrimeiraRefeicao);
 
   @BeforeEach
   public void setup() {
@@ -86,6 +77,9 @@ public class EntregaControllerTests {
   @Order(1)
   @DisplayName("01 - Testa a adição de novas entregas ao DB.")
   void adicionarNovaEntrega() throws Exception {
+
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
 
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)
@@ -111,10 +105,13 @@ public class EntregaControllerTests {
   @DisplayName("02 - Testa inserção de entrega já cadastrada.")
   void deveRetornarEntregaExistsException() throws Exception {
 
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
+
     when(post("/entrega/add")
       .contentType(MediaType.APPLICATION_JSON)
       .content(new ObjectMapper().writeValueAsString(newEntrega)))
-      .thenThrow(EntregaExistsException.class);
+      .thenThrow(ExistsException.class);
 
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)
@@ -126,20 +123,27 @@ public class EntregaControllerTests {
   @DisplayName("03 - Testa lançamento do erro inesperado.")
   void deveRetornarUnexpectedErrorException() throws Exception {
 
-    when(post("/entrega/add")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(new ObjectMapper().writeValueAsString(newEntrega)))
-      .thenThrow(UnexpectedErrorException.class);
+    Entrega newEntrega = new Entrega();
+
+//    when(post("/entrega/add")
+//      .contentType(MediaType.APPLICATION_JSON)
+//      .content(new ObjectMapper().writeValueAsString(newEntrega)))
+//      .thenThrow(UnexpectedErrorException.class);
 
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)
-        .content(new ObjectMapper().writeValueAsString(newEntrega)));
+      .content(new ObjectMapper().writeValueAsString(newEntrega)))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isInternalServerError()).andExpect(jsonPath("$.error").value("Erro inesperado."));
   }
 
   @Test
   @Order(4)
   @DisplayName("04 - Testa se retorno da lista acontece com sucesso.")
   void deveRetornarUmaListaDeEntregas() throws Exception {
+
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
 
     entregaRepository.save(newEntrega);
 
@@ -153,6 +157,9 @@ public class EntregaControllerTests {
   @Order(5)
   @DisplayName("05 - Testa lançamento do erro inesperado ao tentar listar as entregas.")
   void deveRetornarUnexpectedErrorExceptionAoTentarListarEntregas() throws Exception {
+
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
 
     when(get("/entrega/all")
       .contentType(MediaType.APPLICATION_JSON)
@@ -169,6 +176,9 @@ public class EntregaControllerTests {
   @DisplayName("06 - Testa retorno de busca de entrega pelo id.")
   void buscaEntregaPorId() throws Exception {
 
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
+
     entregaRepository.save(newEntrega);
 
     mockMvc
@@ -182,6 +192,9 @@ public class EntregaControllerTests {
   @DisplayName("07 - Testa caso em que a entrega não é encontrada.")
   void entregaPoprIdNaoEncontrada() throws Exception {
 
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
+
     mockMvc
       .perform(get("/entrega/0").contentType(MediaType.APPLICATION_JSON))
       .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
@@ -192,6 +205,9 @@ public class EntregaControllerTests {
   @Order(8)
   @DisplayName("08 - Testa se determinada entrega foi atualizada.")
   void atualizarEntrega() throws Exception {
+
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
 
     newEntrega.setDestinatario("destinatário_updated");
 
@@ -210,6 +226,9 @@ public class EntregaControllerTests {
   @DisplayName("09 - Testa caso de não encontrar a entrega à ser atualizada.")
   void exceptionAoAtualizarEntrega() throws Exception {
 
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
+
     mockMvc
       .perform(put("/entrega/0").contentType(MediaType.APPLICATION_JSON)
       .content(new ObjectMapper().writeValueAsString(newEntrega)))
@@ -222,6 +241,9 @@ public class EntregaControllerTests {
   @DisplayName("10 - Testa a remoção de determinada entrega.")
   void removeEntrega() throws Exception {
 
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
+
     entregaRepository.save(newEntrega);
 
     mockMvc
@@ -233,6 +255,9 @@ public class EntregaControllerTests {
   @Order(11)
   @DisplayName("11 - Testa a tentativa de remoção de uma entrega inexistente.")
   void entregaNaoEncontradoParaRemocao() throws Exception {
+
+    Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
+      "destinatario", dataEntrega, false);
 
     mockMvc
       .perform(delete("/entrega/0"))

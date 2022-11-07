@@ -1,8 +1,8 @@
 package com.futuereh.dronefeeder.service;
 
-import com.futuereh.dronefeeder.commons.DroneBadRequestException;
-import com.futuereh.dronefeeder.commons.DroneExistsException;
-import com.futuereh.dronefeeder.commons.DroneNotFoundException;
+import com.futuereh.dronefeeder.commons.BadRequestException;
+import com.futuereh.dronefeeder.commons.ExistsException;
+import com.futuereh.dronefeeder.commons.NotFoundException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
@@ -37,19 +37,19 @@ public class DroneService {
 
     try {
       if (repository.existsBySerialNumber(droneDto.getSerialNumber())) {
-        throw new DroneExistsException();
+        throw new ExistsException("Drone já cadastrado.");
       }
 
       if (droneDto.getSerialNumber().isEmpty()) {
-        throw new DroneBadRequestException("SerialNumber não foi informado.");
+        throw new BadRequestException("SerialNumber não foi informado.");
       }
 
       if (droneDto.getLatitude() == 0) {
-        throw new DroneBadRequestException("Latitude não foi informada.");
+        throw new BadRequestException("Latitude não foi informada.");
       }
 
       if (droneDto.getLongitude() == 0) {
-        throw new DroneBadRequestException("Longitude não foi informada.");
+        throw new BadRequestException("Longitude não foi informada.");
       }
 
       Drone newDrone = new Drone(droneDto.getSerialNumber(), droneDto.getLatitude(),
@@ -58,9 +58,9 @@ public class DroneService {
       this.repository.save(newDrone);
 
       return newDrone;
-    } catch (DroneExistsException err) {
+    } catch (ExistsException err) {
       throw err;
-    } catch (DroneBadRequestException err) {
+    } catch (BadRequestException err) {
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();
@@ -79,11 +79,11 @@ public class DroneService {
       Optional<Drone> drone = repository.findById(id);
 
       if (drone.isEmpty()) {
-        throw new DroneNotFoundException();
+        throw new NotFoundException("Drone não encontrado.");
       }
 
       return drone.get();
-    } catch (DroneNotFoundException err) {
+    } catch (NotFoundException err) {
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();
@@ -105,11 +105,11 @@ public class DroneService {
         .collect(Collectors.toList());
 
       if (dronesLivres.isEmpty()) {
-        throw new DroneNotFoundException();
+        throw new NotFoundException("Drone não encontrado.");
       }
 
       return dronesLivres;
-    } catch (DroneNotFoundException err) {
+    } catch (NotFoundException err) {
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();
@@ -130,19 +130,19 @@ public class DroneService {
       Optional<Drone> toBeUpdated = repository.findById(id);
 
       if (toBeUpdated.isEmpty()) {
-        throw new DroneNotFoundException();
+        throw new NotFoundException("Drone não encontrado.");
       }
 
       if (droneDto.getSerialNumber().isEmpty()) {
-        throw new DroneBadRequestException("SerialNumber não foi informado.");
+        throw new BadRequestException("SerialNumber não foi informado.");
       }
 
       if (droneDto.getLatitude() == 0) {
-        throw new DroneBadRequestException("Latitude não foi informada.");
+        throw new BadRequestException("Latitude não foi informada.");
       }
 
       if (droneDto.getLongitude() == 0) {
-        throw new DroneBadRequestException("Longitude não foi informada.");
+        throw new BadRequestException("Longitude não foi informada.");
       }
 
       toBeUpdated.get().setSerialNumber(droneDto.getSerialNumber());
@@ -153,9 +153,9 @@ public class DroneService {
       repository.save(toBeUpdated.get());
 
       return toBeUpdated.get();
-    } catch (DroneNotFoundException err) {
+    } catch (NotFoundException err) {
       throw err;
-    } catch (DroneBadRequestException err) {
+    } catch (BadRequestException err) {
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();
@@ -173,11 +173,11 @@ public class DroneService {
       Optional<Drone> toBeDeleted = repository.findById(id);
 
       if (toBeDeleted.isEmpty()) {
-        throw new DroneNotFoundException();
+        throw new NotFoundException("Drone não encontrado.");
       }
 
       repository.deleteById(id);
-    } catch (DroneNotFoundException err) {
+    } catch (NotFoundException err) {
       throw err;
     } catch (Exception err) {
       throw new UnexpectedErrorException();

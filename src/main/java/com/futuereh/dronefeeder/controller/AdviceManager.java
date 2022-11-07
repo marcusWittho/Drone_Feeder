@@ -1,12 +1,10 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.commons.DataError;
-import com.futuereh.dronefeeder.commons.DroneBadRequestException;
-import com.futuereh.dronefeeder.commons.DroneExistsException;
-import com.futuereh.dronefeeder.commons.EntregaExistsException;
-import com.futuereh.dronefeeder.commons.EntregaNotFoundException;
+import com.futuereh.dronefeeder.commons.BadRequestException;
+import com.futuereh.dronefeeder.commons.ExistsException;
 import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
-import com.futuereh.dronefeeder.commons.DroneNotFoundException;
+import com.futuereh.dronefeeder.commons.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,8 +19,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneExistsException.
    */
-  @ExceptionHandler({DroneExistsException.class})
-  public ResponseEntity<DataError> handlerConflict(DroneExistsException exception) {
+  @ExceptionHandler({ExistsException.class})
+  public ResponseEntity<DataError> handlerConflict(ExistsException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
@@ -32,8 +30,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneNotFoundException.
    */
-  @ExceptionHandler({DroneNotFoundException.class})
-  public ResponseEntity<DataError> handlerNotFound(DroneNotFoundException exception) {
+  @ExceptionHandler({NotFoundException.class})
+  public ResponseEntity<DataError> handlerNotFound(NotFoundException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
@@ -43,8 +41,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneBadRequest.
    */
-  @ExceptionHandler({DroneBadRequestException.class})
-  public ResponseEntity<DataError> handlerBadRequest(DroneBadRequestException exception) {
+  @ExceptionHandler({BadRequestException.class})
+  public ResponseEntity<DataError> handlerBadRequest(BadRequestException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
@@ -60,27 +58,5 @@ public class AdviceManager {
     DataError error = new DataError(exception.getMessage());
 
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
-  }
-
-  /**
-   * Captura exceções do tipo CONFLICT.
-   */
-  @ExceptionHandler({EntregaExistsException.class})
-  public ResponseEntity<DataError> handlerBadRequest(EntregaExistsException exception) {
-
-    DataError error = new DataError(exception.getMessage());
-
-    return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
-  }
-
-  /**
-   * Captura exceções do tipo DroneNotFoundException.
-   */
-  @ExceptionHandler({EntregaNotFoundException.class})
-  public ResponseEntity<DataError> handlerNotFound(EntregaNotFoundException exception) {
-
-    DataError error = new DataError(exception.getMessage());
-
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
   }
 }

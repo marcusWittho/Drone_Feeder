@@ -1,7 +1,7 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.futuereh.dronefeeder.commons.DroneNotFoundException;
+import com.futuereh.dronefeeder.commons.NotFoundException;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -100,7 +100,7 @@ public class DroneControllerTests {
 
     mockMvc
       .perform(post("/drone/add").contentType(MediaType.APPLICATION_JSON)
-        .content(new ObjectMapper().writeValueAsString(newDrone)))
+      .content(new ObjectMapper().writeValueAsString(newDrone)))
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isInternalServerError()).andExpect(jsonPath("$.error").value("Erro inesperado."));
   }
@@ -185,7 +185,7 @@ public class DroneControllerTests {
     when(get("/drone/livre")
       .contentType(MediaType.APPLICATION_JSON)
       .content(new ObjectMapper().writeValueAsString(newDrone_1)))
-      .thenThrow(DroneNotFoundException.class);
+      .thenThrow(NotFoundException.class);
 
     mockMvc
       .perform(get("/drone/livre").contentType(MediaType.APPLICATION_JSON));
