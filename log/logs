@@ -8,3 +8,4 @@
 [2022-11-08 12:59:05,780] Test worker com.futuereh.dronefeeder.service.EntregaService 95 WARN   - Error Message: Drone não encontrado.
 [2022-11-08 12:59:05,815] Test worker com.futuereh.dronefeeder.service.DroneService 121 WARN   - Error Message: Drone não encontrado.
 [2022-11-08 12:59:05,815] Test worker com.futuereh.dronefeeder.service.EntregaService 95 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 13:08:26,353] http-nio-8181-exec-1 com.futuereh.dronefeeder.service.DroneService 93 WARN   - Error Message: Drone não encontrado.

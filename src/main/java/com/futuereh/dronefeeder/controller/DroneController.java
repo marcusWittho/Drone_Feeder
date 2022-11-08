@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * classe responsável pelos endpoints da aplicação.
  */
 @RestController
-@RequestMapping("/drone")
+@RequestMapping("/")
 public class DroneController {
 
   private DroneService service;
@@ -27,12 +27,17 @@ public class DroneController {
     this.service = service;
   }
 
+  @GetMapping("/")
+  public ResponseEntity helloDrone() {
+
+    return ResponseEntity.status(HttpStatus.OK).body("Hello Drone!");
+  }
   /**
    * Método responsável pelo endpoint que faz parte do fluxo de adição de um novo drone.
    *
    * @return - retorna uma String com as informações do drone adicionado ao DB.
    */
-  @PostMapping("/add")
+  @PostMapping("/drone/add")
   public ResponseEntity addDrone(@RequestBody DroneDto droneDto) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(service.addDrone(droneDto));
@@ -44,7 +49,7 @@ public class DroneController {
    * @param id - recebe o id do drone a ser consultado.
    * @return - retorna o drone referente ao id recebido por parâmetro.
    */
-  @GetMapping("/{id}")
+  @GetMapping("/drone/{id}")
   public ResponseEntity droneById(@PathVariable(value = "id") String id) {
 
     return ResponseEntity.status(HttpStatus.OK).body(service.droneById(Integer.parseInt(id)));
@@ -55,7 +60,7 @@ public class DroneController {
    *
    * @return - retorna uma lista de drones.
    */
-  @GetMapping("/livre")
+  @GetMapping("/drone/livre")
   public ResponseEntity droneByStatus() {
 
     return ResponseEntity.status(HttpStatus.OK).body(service.droneByStatusFalse());
@@ -68,7 +73,7 @@ public class DroneController {
    * @param droneDto - recebe as novas informações para realizar a atualização.
    * @return - retorna o drone atualizado.
    */
-  @PutMapping("/{id}")
+  @PutMapping("/drone/{id}")
   public ResponseEntity updateDrone(@PathVariable(value = "id") Integer id,
                                     @RequestBody DroneDto droneDto) {
 
@@ -81,7 +86,7 @@ public class DroneController {
    * @param id - recebe o id do drone que será removido.
    * @return - não há retorno, somente o status http 200.
    */
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/drone/{id}")
   public ResponseEntity removeDrone(@PathVariable(value = "id") Integer id) {
 
     service.removeDrone(id);
