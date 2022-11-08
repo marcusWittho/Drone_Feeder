@@ -1,10 +1,10 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.commons.DataError;
-import com.futuereh.dronefeeder.commons.BadRequestException;
-import com.futuereh.dronefeeder.commons.ExistsException;
-import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
-import com.futuereh.dronefeeder.commons.NotFoundException;
+import com.futuereh.dronefeeder.commons.CustomBadRequestException;
+import com.futuereh.dronefeeder.commons.CustomExistsException;
+import com.futuereh.dronefeeder.commons.CustomUnexpectedErrorException;
+import com.futuereh.dronefeeder.commons.CustomNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,8 +19,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneExistsException.
    */
-  @ExceptionHandler({ExistsException.class})
-  public ResponseEntity<DataError> handlerConflict(ExistsException exception) {
+  @ExceptionHandler({CustomExistsException.class})
+  public ResponseEntity<DataError> handlerConflict(CustomExistsException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
@@ -30,8 +30,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneNotFoundException.
    */
-  @ExceptionHandler({NotFoundException.class})
-  public ResponseEntity<DataError> handlerNotFound(NotFoundException exception) {
+  @ExceptionHandler({CustomNotFoundException.class})
+  public ResponseEntity<DataError> handlerNotFound(CustomNotFoundException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
@@ -41,8 +41,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo DroneBadRequest.
    */
-  @ExceptionHandler({BadRequestException.class})
-  public ResponseEntity<DataError> handlerBadRequest(BadRequestException exception) {
+  @ExceptionHandler({CustomBadRequestException.class})
+  public ResponseEntity<DataError> handlerBadRequest(CustomBadRequestException exception) {
 
     DataError error = new DataError(exception.getMessage());
 
@@ -52,8 +52,8 @@ public class AdviceManager {
   /**
    * Captura exceções do tipo ErroInesperado.
    */
-  @ExceptionHandler({UnexpectedErrorException.class})
-  public ResponseEntity<DataError> handlerBadRequest(UnexpectedErrorException exception) {
+  @ExceptionHandler({CustomUnexpectedErrorException.class})
+  public ResponseEntity<DataError> handlerBadRequest(CustomUnexpectedErrorException exception) {
 
     DataError error = new DataError(exception.getMessage());
 

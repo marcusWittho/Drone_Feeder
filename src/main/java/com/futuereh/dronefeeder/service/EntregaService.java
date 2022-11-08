@@ -1,8 +1,9 @@
 package com.futuereh.dronefeeder.service;
 
-import com.futuereh.dronefeeder.commons.ExistsException;
-import com.futuereh.dronefeeder.commons.NotFoundException;
-import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
+import com.futuereh.dronefeeder.commons.CustomBadRequestException;
+import com.futuereh.dronefeeder.commons.CustomExistsException;
+import com.futuereh.dronefeeder.commons.CustomNotFoundException;
+import com.futuereh.dronefeeder.commons.CustomUnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.EntregaDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
@@ -42,6 +43,43 @@ public class EntregaService {
   }
 
   /**
+   * Validação simples dos dados de entreda.
+   */
+  public String validarEntrega(EntregaDto entregaDto) {
+    if (entregaDto.getBairro().isEmpty()) {
+
+      return "O bairro não foi informado.";
+    }
+
+    if (entregaDto.getCep().isEmpty()) {
+
+      return "O cep não foi informado.";
+    }
+
+    if (entregaDto.getEndereco().isEmpty()) {
+
+      return "O endereço não foi informado.";
+    }
+
+    if (entregaDto.getNum() == null) {
+
+      return "O número não foi informado.";
+    }
+
+    if (entregaDto.getDestinatario().isEmpty()) {
+
+      return "O destinatário não foi informado.";
+    }
+
+    if (entregaDto.getDestinatario().isEmpty()) {
+
+      return "O destinatário não foi informado.";
+    }
+
+    return "";
+  }
+
+  /**
    * Método responsável por adicionar uma nova entrega.
    *
    * @param entregaDto - recebe as informações referentes à nova entrega.
@@ -50,16 +88,20 @@ public class EntregaService {
   public Entrega addEntrega(EntregaDto entregaDto) {
 
     try {
-      if (entregaRepository.existsByDestinatario(entregaDto.getDestinatario())) {
-
-        throw new ExistsException("Entrega já está cadastrada.");
-      }
-
       drones = droneService.droneByStatusFalse();
 
       if (drones.isEmpty()) {
 
-        throw new NotFoundException("Drone não encontrado.");
+        throw new CustomNotFoundException("Não há drone disponível.");
+      }
+
+      if (!validarEntrega(entregaDto).isEmpty()) {
+        throw new CustomBadRequestException(validarEntrega(entregaDto));
+      }
+
+      if (entregaRepository.existsByDestinatario(entregaDto.getDestinatario())) {
+
+        throw new CustomExistsException("Entrega já está cadastrada.");
       }
 
       String formatData = "dd/MM/yyyy";
@@ -88,15 +130,18 @@ public class EntregaService {
       droneRepository.save(drones.get(0));
 
       return newEntrega;
-    } catch (ExistsException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomExistsException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
-    } catch (NotFoundException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomBadRequestException err) {
+      logger.error("Error Message: " + err.getMessage());
+      throw err;
+    } catch (CustomNotFoundException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error("Error Message: " + err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -110,7 +155,7 @@ public class EntregaService {
 
       return entregas;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     }
   }
@@ -127,16 +172,16 @@ public class EntregaService {
       Optional<Entrega> entrega = entregaRepository.findById(id);
 
       if (entrega.isEmpty()) {
-        throw new NotFoundException("Entrega não encontrada.");
+        throw new CustomNotFoundException("Entrega não encontrada.");
       }
 
       return entrega.get();
-    } catch (NotFoundException err) {
-      logger.warn(err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error(err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn(err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error(err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -154,26 +199,39 @@ public class EntregaService {
       Optional<Entrega> toBeUpdated = entregaRepository.findById(id);
 
       if (toBeUpdated.isEmpty()) {
-        throw new NotFoundException("Entrega não encontrada.");
+        throw new CustomNotFoundException("Entrega não encontrada.");
       }
+
+      String formatData = "dd/MM/yyyy";
+
+      DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern(formatData);
+
+      String formatHora = "HH:mm:ss";
+
+      DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern(formatHora);
+
+      LocalDateTime horaPrimeiraRefeicao = LocalDateTime.now();
+
+      String dataEntrega = formatadorData.format(horaPrimeiraRefeicao)
+        + " - " + formatadorHora.format(horaPrimeiraRefeicao);
 
       toBeUpdated.get().setBairro(entregaDto.getBairro());
       toBeUpdated.get().setCep(entregaDto.getCep());
       toBeUpdated.get().setEndereco(entregaDto.getEndereco());
       toBeUpdated.get().setNum(entregaDto.getNum());
       toBeUpdated.get().setDestinatario(entregaDto.getDestinatario());
-      toBeUpdated.get().setData(entregaDto.getData());
+      toBeUpdated.get().setData(dataEntrega);
       toBeUpdated.get().setStatus(entregaDto.isStatus());
 
       entregaRepository.save(toBeUpdated.get());
 
       return toBeUpdated.get();
-    } catch (NotFoundException err) {
-      logger.warn(err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error(err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn(err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error(err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -188,16 +246,16 @@ public class EntregaService {
       Optional<Entrega> toBeDeleted = entregaRepository.findById(id);
 
       if (toBeDeleted.isEmpty()) {
-        throw new NotFoundException("Entrega não encontrada.");
+        throw new CustomNotFoundException("Entrega não encontrada.");
       }
 
       entregaRepository.deleteById(id);
-    } catch (NotFoundException err) {
-      logger.warn(err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error(err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn(err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error(err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 }
