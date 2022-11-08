@@ -1,0 +1,10 @@
+[2022-11-08 12:59:04,718] Test worker com.futuereh.dronefeeder.service.DroneService 68 WARN   - Error Message: SerialNumber não foi informado.
+[2022-11-08 12:59:04,744] Test worker com.futuereh.dronefeeder.service.DroneService 71 WARN   - Error Message: null
+[2022-11-08 12:59:04,790] Test worker com.futuereh.dronefeeder.service.DroneService 65 WARN   - Error Message: Drone já cadastrado.
+[2022-11-08 12:59:04,844] Test worker com.futuereh.dronefeeder.service.DroneService 93 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 12:59:04,904] Test worker com.futuereh.dronefeeder.service.DroneService 121 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 12:59:04,984] Test worker com.futuereh.dronefeeder.service.DroneService 194 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 12:59:05,780] Test worker com.futuereh.dronefeeder.service.DroneService 121 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 12:59:05,780] Test worker com.futuereh.dronefeeder.service.EntregaService 95 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 12:59:05,815] Test worker com.futuereh.dronefeeder.service.DroneService 121 WARN   - Error Message: Drone não encontrado.
+[2022-11-08 12:59:05,815] Test worker com.futuereh.dronefeeder.service.EntregaService 95 WARN   - Error Message: Drone não encontrado.
