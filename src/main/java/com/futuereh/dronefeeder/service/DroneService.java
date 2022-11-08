@@ -73,6 +73,21 @@ public class DroneService {
   }
 
   /**
+   * Método responsável por retornar uma lista com os drones cadastrados.
+   */
+  public List<Drone> drones() {
+
+    try {
+      List<Drone> dronesList = repository.findAll();
+
+      return dronesList;
+    } catch (Exception err) {
+      logger.error(err.getCause());
+      throw err;
+    }
+  }
+
+  /**
    * Método responsável por obter um drone pelo id informado.
    *
    * @param id - recebe o id do drone a ser pesquisado.

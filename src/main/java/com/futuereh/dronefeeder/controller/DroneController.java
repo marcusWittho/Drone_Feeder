@@ -44,6 +44,15 @@ public class DroneController {
   }
 
   /**
+   * Método responsável pelo endpoint que faz parte do fluxo para retornar os drones cadastrados.
+   */
+  @GetMapping("/drone/all")
+  public ResponseEntity dronesList() {
+
+    return ResponseEntity.status(HttpStatus.OK).body(service.drones());
+  }
+
+  /**
    * Método responsável por buscar determinado drone pelo id indicado.
    *
    * @param id - recebe o id do drone a ser consultado.
