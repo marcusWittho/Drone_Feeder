@@ -2,9 +2,9 @@ package com.futuereh.dronefeeder.commons;
 
 /**
  * Método customizado para erros do tipo INTERNAL_SERVER_ERROR. */
-public class UnexpectedErrorException extends RuntimeException {
+public class CustomUnexpectedErrorException extends RuntimeException {
 
-  public UnexpectedErrorException() {
+  public CustomUnexpectedErrorException() {
 
     super("Erro inesperado.");
   }

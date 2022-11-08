@@ -3,9 +3,9 @@ package com.futuereh.dronefeeder.commons;
 /**
  * Método customizado para erros do tipo NOT_FOUND.
  */
-public class NotFoundException extends RuntimeException {
+public class CustomNotFoundException extends RuntimeException {
 
-  public NotFoundException(String message) {
+  public CustomNotFoundException(String message) {
 
     super(message);
   }

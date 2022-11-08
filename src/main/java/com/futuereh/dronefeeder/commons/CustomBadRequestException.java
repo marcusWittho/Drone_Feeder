@@ -3,9 +3,9 @@ package com.futuereh.dronefeeder.commons;
 /**
  * Método customizado para erros do tipo BAD_REQUEST.
  */
-public class BadRequestException extends RuntimeException {
+public class CustomBadRequestException extends RuntimeException {
 
-  public BadRequestException(String message) {
+  public CustomBadRequestException(String message) {
 
     super(message);
   }

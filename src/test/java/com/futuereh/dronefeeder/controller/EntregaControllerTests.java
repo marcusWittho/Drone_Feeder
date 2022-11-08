@@ -1,9 +1,7 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.futuereh.dronefeeder.commons.ExistsException;
-import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
-import com.futuereh.dronefeeder.model.Drone;
+import com.futuereh.dronefeeder.commons.CustomExistsException;
 import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import com.futuereh.dronefeeder.repository.EntregaRepository;
@@ -34,9 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -111,7 +107,7 @@ public class EntregaControllerTests {
     when(post("/entrega/add")
       .contentType(MediaType.APPLICATION_JSON)
       .content(new ObjectMapper().writeValueAsString(newEntrega)))
-      .thenThrow(ExistsException.class);
+      .thenThrow(CustomExistsException.class);
 
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)

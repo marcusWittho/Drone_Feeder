@@ -1,9 +1,9 @@
 package com.futuereh.dronefeeder.service;
 
-import com.futuereh.dronefeeder.commons.BadRequestException;
-import com.futuereh.dronefeeder.commons.ExistsException;
-import com.futuereh.dronefeeder.commons.NotFoundException;
-import com.futuereh.dronefeeder.commons.UnexpectedErrorException;
+import com.futuereh.dronefeeder.commons.CustomBadRequestException;
+import com.futuereh.dronefeeder.commons.CustomExistsException;
+import com.futuereh.dronefeeder.commons.CustomNotFoundException;
+import com.futuereh.dronefeeder.commons.CustomUnexpectedErrorException;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
@@ -11,7 +11,6 @@ import com.futuereh.dronefeeder.repository.DroneRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -40,19 +39,19 @@ public class DroneService {
 
     try {
       if (repository.existsBySerialNumber(droneDto.getSerialNumber())) {
-        throw new ExistsException("Drone já cadastrado.");
+        throw new CustomExistsException("Drone já cadastrado.");
       }
 
       if (droneDto.getSerialNumber().isEmpty()) {
-        throw new BadRequestException("SerialNumber não foi informado.");
+        throw new CustomBadRequestException("SerialNumber não foi informado.");
       }
 
       if (droneDto.getLatitude() == 0) {
-        throw new BadRequestException("Latitude não foi informada.");
+        throw new CustomBadRequestException("Latitude não foi informada.");
       }
 
       if (droneDto.getLongitude() == 0) {
-        throw new BadRequestException("Longitude não foi informada.");
+        throw new CustomBadRequestException("Longitude não foi informada.");
       }
 
       Drone newDrone = new Drone(droneDto.getSerialNumber(), droneDto.getLatitude(),
@@ -61,15 +60,15 @@ public class DroneService {
       this.repository.save(newDrone);
 
       return newDrone;
-    } catch (ExistsException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomExistsException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
-    } catch (BadRequestException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomBadRequestException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error("Error Message: " + err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -85,16 +84,16 @@ public class DroneService {
       Optional<Drone> drone = repository.findById(id);
 
       if (drone.isEmpty()) {
-        throw new NotFoundException("Drone não encontrado.");
+        throw new CustomNotFoundException("Drone não encontrado.");
       }
 
       return drone.get();
-    } catch (NotFoundException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error("Error Message: " + err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -113,16 +112,16 @@ public class DroneService {
         .collect(Collectors.toList());
 
       if (dronesLivres.isEmpty()) {
-        throw new NotFoundException("Drone não encontrado.");
+        throw new CustomNotFoundException("Drone não encontrado.");
       }
 
       return dronesLivres;
-    } catch (NotFoundException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error("Error Message: " + err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -140,19 +139,19 @@ public class DroneService {
       Optional<Drone> toBeUpdated = repository.findById(id);
 
       if (toBeUpdated.isEmpty()) {
-        throw new NotFoundException("Drone não encontrado.");
+        throw new CustomNotFoundException("Drone não encontrado.");
       }
 
       if (droneDto.getSerialNumber().isEmpty()) {
-        throw new BadRequestException("SerialNumber não foi informado.");
+        throw new CustomBadRequestException("SerialNumber não foi informado.");
       }
 
       if (droneDto.getLatitude() == 0) {
-        throw new BadRequestException("Latitude não foi informada.");
+        throw new CustomBadRequestException("Latitude não foi informada.");
       }
 
       if (droneDto.getLongitude() == 0) {
-        throw new BadRequestException("Longitude não foi informada.");
+        throw new CustomBadRequestException("Longitude não foi informada.");
       }
 
       toBeUpdated.get().setSerialNumber(droneDto.getSerialNumber());
@@ -163,15 +162,15 @@ public class DroneService {
       repository.save(toBeUpdated.get());
 
       return toBeUpdated.get();
-    } catch (NotFoundException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
-    } catch (BadRequestException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomBadRequestException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error("Error Message: " + err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 
@@ -186,16 +185,16 @@ public class DroneService {
       Optional<Drone> toBeDeleted = repository.findById(id);
 
       if (toBeDeleted.isEmpty()) {
-        throw new NotFoundException("Drone não encontrado.");
+        throw new CustomNotFoundException("Drone não encontrado.");
       }
 
       repository.deleteById(id);
-    } catch (NotFoundException err) {
-      logger.warn("Error Message: " + err.getMessage());
+    } catch (CustomNotFoundException err) {
+      logger.error("Error Message: " + err.getMessage());
       throw err;
     } catch (Exception err) {
-      logger.warn("Error Message: " + err.getMessage());
-      throw new UnexpectedErrorException();
+      logger.error("Error Message: " + err.getMessage());
+      throw new CustomUnexpectedErrorException();
     }
   }
 }
