@@ -71,7 +71,7 @@ public class EntregaController {
   public ResponseEntity updateEntrega(@PathVariable(value = "id") Integer id,
                                       @RequestBody EntregaDto entregaDto) {
 
-    return ResponseEntity.status(HttpStatus.OK).body(entregaService.updateentrega(id, entregaDto));
+    return ResponseEntity.status(HttpStatus.OK).body(entregaService.updateEntrega(id, entregaDto));
   }
 
   /**

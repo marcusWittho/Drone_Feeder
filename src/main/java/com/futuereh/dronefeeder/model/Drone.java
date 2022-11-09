@@ -22,8 +22,8 @@ public class Drone {
   private Integer id;
 
   private String serialNumber;
-  private double latitude;
-  private double longitude;
+  private double latitude = 0;
+  private double longitude = 0;
   private boolean operando;
 
   @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL, orphanRemoval = true)

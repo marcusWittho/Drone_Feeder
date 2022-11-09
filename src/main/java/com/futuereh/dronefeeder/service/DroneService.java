@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * Classe responsável pelas validações que antecedem as operações com o DB.
  */
@@ -35,6 +37,7 @@ public class DroneService {
    * <p>@param drone - recebe o drone que será adicionado ao DB.</p>
    * <p>@return - retorna uma string com as informações do drone adicionado.</p>
    */
+  @Transactional
   public Drone addDrone(DroneDto droneDto) {
 
     try {
@@ -147,6 +150,7 @@ public class DroneService {
    * @param droneDto - recebe as novas informações do drone.
    * @return - retorna o drone com as informaçẽos atualizadas.
    */
+  @Transactional
   public Drone updateDrone(Integer id, DroneDto droneDto) {
 
     try {
@@ -194,6 +198,7 @@ public class DroneService {
    *
    * @param id - recebe o id do drone que será removido.
    */
+  @Transactional
   public void removeDrone(Integer id) {
 
     try {

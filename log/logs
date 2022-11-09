@@ -19,3 +19,84 @@
 2022-11-08 13:32:52,472 -0300 [http-nio-8181-exec-5] ERROR (EntregaService.java:140) - Error Message: Drone não encontrado.
 2022-11-08 13:33:20,696 -0300 [http-nio-8181-exec-7] ERROR (EntregaService.java:137) - Error Message: O bairro não foi informado.
 2022-11-08 13:33:49,026 -0300 [http-nio-8181-exec-1] ERROR (EntregaService.java:137) - Error Message: O bairro não foi informado.
+2022-11-08 13:49:25,774 -0300 [http-nio-8181-exec-2] ERROR (DroneService.java:67) - Error Message: Drone já cadastrado.
+2022-11-08 13:52:04,539 -0300 [http-nio-8181-exec-8] ERROR (EntregaService.java:137) - Error Message: Entrega já está cadastrada.
+2022-11-08 21:29:48,447 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: 
+Strict stubbing argument mismatch. Please check:
+ - this invocation of 'save' method:
+    repository.save(
+    com.futuereh.dronefeeder.model.Drone@301d8120
+);
+    -> at com.futuereh.dronefeeder.service.DroneService.addDrone(DroneService.java:63)
+ - has following stubbing(s) with different arguments:
+    1. repository.save(
+    com.futuereh.dronefeeder.model.Drone@2d7e1102
+);
+      -> at com.futuereh.dronefeeder.service.DroneServiceTest.test1(DroneServiceTest.java:36)
+Typically, stubbing argument mismatch indicates user mistake when writing tests.
+Mockito fails early so that you can debug potential problem easily.
+However, there are legit scenarios when this exception generates false negative signal:
+  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+    Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+  - stubbed method is intentionally invoked with different arguments by code under test
+    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+For more information see javadoc for PotentialStubbingProblem class.
+2022-11-08 21:34:52,479 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: 
+Strict stubbing argument mismatch. Please check:
+ - this invocation of 'save' method:
+    repository.save(
+    com.futuereh.dronefeeder.model.Drone@301d8120
+);
+    -> at com.futuereh.dronefeeder.service.DroneService.addDrone(DroneService.java:63)
+ - has following stubbing(s) with different arguments:
+    1. repository.save(
+    com.futuereh.dronefeeder.model.Drone@2d7e1102
+);
+      -> at com.futuereh.dronefeeder.service.DroneServiceTest.test1(DroneServiceTest.java:36)
+Typically, stubbing argument mismatch indicates user mistake when writing tests.
+Mockito fails early so that you can debug potential problem easily.
+However, there are legit scenarios when this exception generates false negative signal:
+  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+    Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+  - stubbed method is intentionally invoked with different arguments by code under test
+    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+For more information see javadoc for PotentialStubbingProblem class.
+2022-11-08 21:39:28,773 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-08 21:42:12,626 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-08 21:42:45,709 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 21:57:17,940 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 21:58:07,925 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:04:03,825 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:04:40,753 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:04:54,924 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado
+2022-11-08 22:05:15,159 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:09:19,712 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:09:19,730 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:09:31,583 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:09:31,601 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: L3titude não foi informada.
+2022-11-08 22:10:03,449 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:10:03,472 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: L3titude não foi informada.
+2022-11-08 22:10:34,932 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:10:34,952 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: L3titude não foi informada.
+2022-11-08 22:10:46,613 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:10:46,635 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:11:06,326 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:11:06,373 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:12:28,248 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:12:28,269 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-08 22:12:28,274 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:12:38,312 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:12:38,332 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Loegitude não foi informada.
+2022-11-08 22:12:38,343 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:12:50,355 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:12:50,373 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-08 22:12:50,378 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:18:48,884 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:18:48,902 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-08 22:18:48,922 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-08 22:28:00,334 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-08 22:28:00,361 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-08 22:28:00,409 -0300 [Test worker] ERROR (DroneService.java:67) - Error Message: Drone já cadastrado.
+2022-11-08 22:28:00,465 -0300 [Test worker] ERROR (DroneService.java:110) - Error Message: Drone não encontrado.
+2022-11-08 22:28:00,528 -0300 [Test worker] ERROR (DroneService.java:138) - Error Message: Drone não encontrado.
+2022-11-08 22:28:00,603 -0300 [Test worker] ERROR (DroneService.java:213) - Error Message: Drone não encontrado.

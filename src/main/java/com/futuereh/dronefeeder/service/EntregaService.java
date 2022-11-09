@@ -16,6 +16,8 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * Classe responsável pelas validações que antecedem as operações com o DB.
  */
@@ -85,6 +87,7 @@ public class EntregaService {
    * @param entregaDto - recebe as informações referentes à nova entrega.
    * @return - retorna a entrega que foi adicionada.
    */
+  @Transactional
   public Entrega addEntrega(EntregaDto entregaDto) {
 
     try {
@@ -192,7 +195,8 @@ public class EntregaService {
    * @param entregaDto - recebe as novas informações da entrega.
    * @return - retorna a entrega com as informaçẽos atualizadas.
    */
-  public Entrega updateentrega(Integer id, EntregaDto entregaDto) {
+  @Transactional
+  public Entrega updateEntrega(Integer id, EntregaDto entregaDto) {
 
     try {
 
@@ -240,6 +244,7 @@ public class EntregaService {
    *
    * @param id - recebe o id da entrega que será removida.
    */
+  @Transactional
   public void removeEntrega(Integer id) {
 
     try {
