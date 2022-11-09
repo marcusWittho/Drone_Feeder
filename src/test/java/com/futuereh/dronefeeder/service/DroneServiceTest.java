@@ -135,14 +135,14 @@ public class DroneServiceTest {
 
   @Test
   @DisplayName("08 - Testa a remoção de determinado drone.")
-  void updateDrone() {
+  void removeDrone() {
 
     Drone droneMock = new Drone("A200", -10.123123, -10.123123, false);
 
     this.repository.deleteById(droneMock.getId());
 
-    Optional<Drone> produto = repository.findById(droneMock.getId());
+    Optional<Drone> drone = repository.findById(droneMock.getId());
 
-    assertEquals(produto, Optional.empty());
+    assertEquals(drone, Optional.empty());
   }
 }

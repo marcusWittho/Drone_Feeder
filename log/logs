@@ -209,3 +209,47 @@ For more information see javadoc for PotentialStubbingProblem class.
 2022-11-09 01:52:16,905 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
 2022-11-09 01:52:16,929 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
 2022-11-09 01:52:16,938 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-09 01:58:01,000 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 01:58:01,044 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-09 01:58:01,125 -0300 [Test worker] ERROR (DroneService.java:67) - Error Message: Drone já cadastrado.
+2022-11-09 01:58:01,193 -0300 [Test worker] ERROR (DroneService.java:110) - Error Message: Drone não encontrado.
+2022-11-09 01:58:01,257 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 01:58:01,367 -0300 [Test worker] ERROR (DroneService.java:209) - Error Message: Drone não encontrado.
+2022-11-09 01:58:02,371 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 01:58:02,372 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 01:58:02,405 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 01:58:02,406 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 01:58:02,435 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 01:58:02,446 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-09 01:58:02,454 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-09 02:31:32,948 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 02:32:35,916 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 02:33:05,519 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 02:33:54,254 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 02:35:10,014 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 02:38:20,723 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 02:39:05,661 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:22:08,274 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:33:49,879 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:38:21,020 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:41:52,890 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:50:39,415 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:50:59,869 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:51:27,121 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:51:43,369 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:52:15,913 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:56:24,333 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 10:58:13,051 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 11:42:56,076 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 11:42:56,137 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-09 11:42:56,258 -0300 [Test worker] ERROR (DroneService.java:67) - Error Message: Drone já cadastrado.
+2022-11-09 11:42:56,348 -0300 [Test worker] ERROR (DroneService.java:110) - Error Message: Drone não encontrado.
+2022-11-09 11:42:56,440 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 11:42:56,583 -0300 [Test worker] ERROR (DroneService.java:209) - Error Message: Drone não encontrado.
+2022-11-09 11:42:57,870 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 11:42:57,871 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 11:42:57,918 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 11:42:57,918 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 11:42:57,952 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 11:42:57,969 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-09 11:42:57,986 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.

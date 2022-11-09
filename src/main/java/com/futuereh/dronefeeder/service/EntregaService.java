@@ -129,7 +129,7 @@ public class EntregaService {
       drones.get(0).setOperando(true);
 
       newEntrega.setDrone(drones.get(0));
-      drones.get(0).addEntrega(newEntrega);
+      drones.get(0).addNewEntrega(newEntrega);
       droneRepository.save(drones.get(0));
 
       return newEntrega;

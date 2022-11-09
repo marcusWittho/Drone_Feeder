@@ -92,7 +92,7 @@ public class Drone {
     this.entregas = entregas;
   }
 
-  public void addEntrega(Entrega entrega) {
+  public void addNewEntrega(Entrega entrega) {
     this.entregas.add(entrega);
   }
 }
