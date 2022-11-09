@@ -2,6 +2,7 @@ package com.futuereh.dronefeeder.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.futuereh.dronefeeder.dto.EntregaDto;
 import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.EntregaRepository;
@@ -24,24 +25,24 @@ public class EntregaServiceTest {
   @InjectMocks
   private EntregaService service;
 
-//  @Test
-//  @DisplayName("01 - Testa a adição de novas entregas.")
-//  void addEntrega() {
-//
-//    EntregaDto entregaDto = new EntregaDto();
-//
-//    entregaDto.setBairro("bairro");
-//    entregaDto.setCep("cep");
-//    entregaDto.setEndereco("endereço");
-//    entregaDto.setNum(1);
-//    entregaDto.setDestinatario("destinatário");
-//    entregaDto.setData("data");
-//    entregaDto.setStatus(false);
-//
-//    Entrega entrega = this.service.addEntrega(entregaDto);
-//
-//    assertEquals("destinatário", entrega.getDestinatario());
-//  }
+  @Test
+  @DisplayName("01 - Testa caso de sucesso para o método validarEntrega.")
+  void validarEntrega() {
+
+    EntregaDto entregaDto = new EntregaDto();
+
+    entregaDto.setBairro("bairro");
+    entregaDto.setCep("cep");
+    entregaDto.setEndereco("endereço");
+    entregaDto.setNum(1);
+    entregaDto.setDestinatario("destinatário");
+    entregaDto.setData("data");
+    entregaDto.setStatus(false);
+
+    String result = service.validarEntrega(entregaDto);
+
+    assertEquals("", result);
+  }
 
   @Test
   @DisplayName("02 - Testa retorno de lista com as entregas cadastradas. ")

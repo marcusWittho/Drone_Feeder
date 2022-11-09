@@ -55,8 +55,6 @@ public class DroneControllerTests {
   @DisplayName("01 - Testa a adição de novos drones ao DB.")
   void adicionarNovoDrone() throws Exception {
 
-//    List<Entrega> entregas = new ArrayList<>();
-
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     mockMvc
@@ -79,8 +77,6 @@ public class DroneControllerTests {
   @DisplayName("02 - Testa adição de novo drone sem informar o serialNumber.")
   void adicionarNovoDroneSemSerialNumber() throws Exception {
 
-//    List<Entrega> entregas = new ArrayList<>();
-
     Drone newDrone = new Drone("", -46.761107, -23.5747372, true);
 
     mockMvc
@@ -93,8 +89,6 @@ public class DroneControllerTests {
   @Order(3)
   @DisplayName("03 - Testa caso de erro inesperado.")
   void adicionarNovoDroneErroInesperado() throws Exception {
-
-//    List<Entrega> entregas = new ArrayList<>();
 
     Drone newDrone = new Drone();
 
@@ -109,8 +103,6 @@ public class DroneControllerTests {
   @Order(4)
   @DisplayName("04 - Testa caso de drone a ser adicionado já existir no DB.")
   void adicionarDroneExistente() throws Exception {
-
-//    List<Entrega> entregas = new ArrayList<>();
 
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
@@ -127,8 +119,6 @@ public class DroneControllerTests {
   @Order(5)
   @DisplayName("05 - Testa o retorno da busca por id.")
   void buscarDronePorId() throws Exception {
-
-//    List<Entrega> entregas = new ArrayList<>();
 
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
@@ -156,8 +146,6 @@ public class DroneControllerTests {
   @DisplayName("07 - Testa retorno de drones com status false.")
   void dronesLivres() throws Exception {
 
-//    List<Entrega> entregas = new ArrayList<>();
-
     Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, false);
     Drone newDrone_2 = new Drone("A200", -46.761107, -23.5747372, false);
 
@@ -175,8 +163,6 @@ public class DroneControllerTests {
   @Order(8)
   @DisplayName("08 - Testa retorno de drones com status false não existirem.")
   void dronesLivresInexistentes() throws Exception {
-
-//    List<Entrega> entregas = new ArrayList<>();
 
     Drone newDrone_1 = new Drone("A100", -46.761107, -23.5747372, true);
 
@@ -196,8 +182,6 @@ public class DroneControllerTests {
   @DisplayName("09 - Testa se determinado drone foi atualizado.")
   void atualizarDrone() throws Exception {
 
-//    List<Entrega> entregas = new ArrayList<>();
-
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 
     droneRepository.save(newDrone);
@@ -216,8 +200,6 @@ public class DroneControllerTests {
   @Order(10)
   @DisplayName("10 - Testa se a remoção do drone ocorreu com sucesso.")
   void removeDrone() throws Exception {
-
-//    List<Entrega> entregas = new ArrayList<>();
 
     Drone newDrone = new Drone("A100", -46.761107, -23.5747372, true);
 

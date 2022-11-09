@@ -253,3 +253,35 @@ For more information see javadoc for PotentialStubbingProblem class.
 2022-11-09 11:42:57,952 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
 2022-11-09 11:42:57,969 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
 2022-11-09 11:42:57,986 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-09 11:47:48,195 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 11:58:20,923 -0300 [Test worker] ERROR (EntregaService.java:146) - Error Message: null
+2022-11-09 12:42:27,245 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 12:42:27,270 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-09 12:42:27,321 -0300 [Test worker] ERROR (DroneService.java:67) - Error Message: Drone já cadastrado.
+2022-11-09 12:42:27,374 -0300 [Test worker] ERROR (DroneService.java:110) - Error Message: Drone não encontrado.
+2022-11-09 12:42:27,428 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 12:42:27,501 -0300 [Test worker] ERROR (DroneService.java:209) - Error Message: Drone não encontrado.
+2022-11-09 12:42:28,210 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 12:42:28,211 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 12:42:28,240 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 12:42:28,241 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 12:42:28,248 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 12:42:28,255 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-09 12:42:28,259 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.
+2022-11-09 16:13:22,271 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 16:13:22,274 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 16:13:22,411 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 16:13:22,412 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 16:15:43,402 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 16:15:43,405 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 16:15:43,777 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 16:15:43,778 -0300 [Test worker] ERROR (EntregaService.java:143) - Error Message: Drone não encontrado.
+2022-11-09 16:15:45,900 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 16:15:45,939 -0300 [Test worker] ERROR (DroneService.java:73) - Error Message: null
+2022-11-09 16:15:46,036 -0300 [Test worker] ERROR (DroneService.java:67) - Error Message: Drone já cadastrado.
+2022-11-09 16:15:46,229 -0300 [Test worker] ERROR (DroneService.java:110) - Error Message: Drone não encontrado.
+2022-11-09 16:15:46,483 -0300 [Test worker] ERROR (DroneService.java:134) - Error Message: Drone não encontrado.
+2022-11-09 16:15:46,753 -0300 [Test worker] ERROR (DroneService.java:209) - Error Message: Drone não encontrado.
+2022-11-09 16:15:46,839 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: SerialNumber não foi informado.
+2022-11-09 16:15:46,858 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Longitude não foi informada.
+2022-11-09 16:15:46,868 -0300 [Test worker] ERROR (DroneService.java:70) - Error Message: Latitude não foi informada.

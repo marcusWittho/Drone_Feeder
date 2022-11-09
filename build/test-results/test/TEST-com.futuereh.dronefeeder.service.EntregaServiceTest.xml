@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.futuereh.dronefeeder.service.EntregaServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-11-09T14:42:57" hostname="Nitro" time="0.008">
+<testsuite name="com.futuereh.dronefeeder.service.EntregaServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-11-09T19:15:46" hostname="Nitro" time="0.012">
   <properties/>
-  <testcase name="03 - Testa a busca de entrega pelo id." classname="com.futuereh.dronefeeder.service.EntregaServiceTest" time="0.001"/>
+  <testcase name="03 - Testa a busca de entrega pelo id." classname="com.futuereh.dronefeeder.service.EntregaServiceTest" time="0.002"/>
+  <testcase name="01 - Testa caso de sucesso para o método validarEntrega." classname="com.futuereh.dronefeeder.service.EntregaServiceTest" time="0.002"/>
   <testcase name="04 - Testa a remoção de determinada entrega." classname="com.futuereh.dronefeeder.service.EntregaServiceTest" time="0.002"/>
-  <testcase name="02 - Testa retorno de lista com as entregas cadastradas." classname="com.futuereh.dronefeeder.service.EntregaServiceTest" time="0.003"/>
+  <testcase name="02 - Testa retorno de lista com as entregas cadastradas." classname="com.futuereh.dronefeeder.service.EntregaServiceTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
