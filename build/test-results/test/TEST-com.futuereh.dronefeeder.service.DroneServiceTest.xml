@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.futuereh.dronefeeder.service.DroneServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-11-09T04:52:16" hostname="Nitro" time="0.564">
+  <properties/>
+  <testcase name="02 - Testa tentativa de adição com serialNumber faltante." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.542"/>
+  <testcase name="05 - Testa retorno de lista com os drones cadastrados" classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.002"/>
+  <testcase name="06 - Testa a busca de drone pelo id." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.003"/>
+  <testcase name="04 - Testa tentativa de adição com Longitude faltante." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.003"/>
+  <testcase name="08 - Testa a remoção de determinado drone." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.002"/>
+  <testcase name="07 - Testa retorno dos drones que estão livres." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.002"/>
+  <testcase name="03 - Testa tentativa de adição com Latitude faltante." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.002"/>
+  <testcase name="01 - Testa adição de novo drone com sucesso." classname="com.futuereh.dronefeeder.service.DroneServiceTest" time="0.001"/>
+  <system-out><![CDATA[ERROR DroneService - Error Message: SerialNumber não foi informado.
+ERROR DroneService - Error Message: Longitude não foi informada.
+ERROR DroneService - Error Message: Latitude não foi informada.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

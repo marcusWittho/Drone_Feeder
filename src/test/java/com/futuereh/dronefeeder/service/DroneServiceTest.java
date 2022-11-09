@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class DroneServiceTest {
@@ -41,29 +45,7 @@ public class DroneServiceTest {
   }
 
   @Test
-  @DisplayName("02 - Testa adição de novo drone já cadastrado.")
-  void addDroneJaCadastrado() {
-
-    DroneDto droneDto = new DroneDto();
-
-    droneDto.setSerialNumber("A300");
-    droneDto.setLatitude(-10.123123);
-    droneDto.setLongitude(-10.123123);
-    droneDto.setOperando(false);
-
-    service.addDrone(droneDto);
-
-    CustomBadRequestException thrown = assertThrows(
-      CustomBadRequestException.class,
-      () -> service.addDrone(droneDto),
-      "Drone já cadastrado."
-    );
-
-    assertTrue(thrown.getMessage().contains("Drone já cadastrado."));
-  }
-
-  @Test
-  @DisplayName("03 - Testa tentativa de adição com serialNumber faltante.")
+  @DisplayName("02 - Testa tentativa de adição com serialNumber faltante.")
   void addDroneComSerialFaltante() {
 
     DroneDto droneDto = new DroneDto();
@@ -83,7 +65,7 @@ public class DroneServiceTest {
   }
 
   @Test
-  @DisplayName("04 - Testa tentativa de adição com Latitude faltante.")
+  @DisplayName("03 - Testa tentativa de adição com Latitude faltante.")
   void addDroneComLatitudeFaltante() {
 
     DroneDto droneDto = new DroneDto();
@@ -102,7 +84,7 @@ public class DroneServiceTest {
   }
 
   @Test
-  @DisplayName("05 - Testa tentativa de adição com Longitude faltante.")
+  @DisplayName("04 - Testa tentativa de adição com Longitude faltante.")
   void addDroneComLongitudeFaltante() {
 
     DroneDto droneDto = new DroneDto();
@@ -118,5 +100,49 @@ public class DroneServiceTest {
     );
 
     assertTrue(thrown.getMessage().contains("Longitude não foi informada."));
+  }
+
+  @Test
+  @DisplayName("05 - Testa retorno de lista com os drones cadastrados")
+  void retornaListadeDrones() {
+
+    List<Drone> drones = service.drones();
+
+    assertNotNull(drones);
+  }
+
+  @Test
+  @DisplayName("06 - Testa a busca de drone pelo id.")
+  void buscaDronePeloId() {
+
+    Drone droneMock = new Drone("A200", -10.123123, -10.123123, false);
+
+    repository.save(droneMock);
+
+    Optional<Drone> drone = repository.findById(droneMock.getId());
+
+    assertNotNull(drone);
+  }
+
+  @Test
+  @DisplayName("07 - Testa retorno dos drones que estão livres.")
+  void listaDronesLivres() {
+
+    List<Drone> drones = repository.findIsOperandoFalse();
+
+    assertNotNull(drones);
+  }
+
+  @Test
+  @DisplayName("08 - Testa a remoção de determinado drone.")
+  void updateDrone() {
+
+    Drone droneMock = new Drone("A200", -10.123123, -10.123123, false);
+
+    this.repository.deleteById(droneMock.getId());
+
+    Optional<Drone> produto = repository.findById(droneMock.getId());
+
+    assertEquals(produto, Optional.empty());
   }
 }

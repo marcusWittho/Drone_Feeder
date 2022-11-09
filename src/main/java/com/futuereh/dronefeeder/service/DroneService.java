@@ -123,11 +123,7 @@ public class DroneService {
   public List<Drone> droneByStatusFalse() {
 
     try {
-      List<Drone> drones = repository.findAll();
-
-      List<Drone> dronesLivres = drones.stream()
-        .filter(drone -> !drone.isOperando())
-        .collect(Collectors.toList());
+      List<Drone> dronesLivres = repository.findIsOperandoFalse();
 
       if (dronesLivres.isEmpty()) {
         throw new CustomNotFoundException("Drone não encontrado.");
