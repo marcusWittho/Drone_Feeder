@@ -20,3 +20,9 @@ create table if not exists tb_entrega (
     primary key (id),
     foreign key (drone_id) references tb_drone(id)
 );
+
+--INSERT INTO tb_drone (id, serial_number, latitude, longitude, operando)
+--VALUES (1, "A100", -10.12312, -20.23423, false);
+--
+--INSERT INTO tb_drone (id, serial_number, latitude, longitude, operando)
+--VALUES (2, "A200", -10.12312, -20.23423, false);

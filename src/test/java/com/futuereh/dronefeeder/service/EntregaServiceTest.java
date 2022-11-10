@@ -64,7 +64,8 @@ public class EntregaServiceTest {
       1,
       "destinatã́rio",
       "data",
-      false
+      false,
+      null
     );
 
     repository.save(entregaMock);
@@ -85,7 +86,8 @@ public class EntregaServiceTest {
       1,
       "destinatã́rio",
       "data",
-      false
+      false,
+      null
     );
 
     repository.save(entregaMock);

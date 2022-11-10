@@ -9,12 +9,19 @@ import com.futuereh.dronefeeder.model.Drone;
 import com.futuereh.dronefeeder.model.Entrega;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import com.futuereh.dronefeeder.repository.EntregaRepository;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
@@ -32,16 +39,21 @@ public class EntregaService {
 
   private DroneRepository droneRepository;
 
+  private final String pathVideos;
+
   private final Logger logger = Logger.getLogger(EntregaService.class);
 
   /**
    * Injeção de dependências.
    */
   public EntregaService(EntregaRepository entregaRepository, DroneService droneService,
-                        DroneRepository droneRepository) {
+                        DroneRepository droneRepository,
+                        @Value("${app.path.arquivos}") String pathVideos) {
+
     this.entregaRepository = entregaRepository;
     this.droneService = droneService;
     this.droneRepository = droneRepository;
+    this.pathVideos = pathVideos;
   }
 
   /**
@@ -82,6 +94,27 @@ public class EntregaService {
   }
 
   /**
+   * Método responsável por retornar uma String com a data e horário.
+   */
+  public String generateDate() {
+
+    String formatData = "dd/MM/yyyy";
+
+    DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern(formatData);
+
+    String formatHora = "HH:mm:ss";
+
+    DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern(formatHora);
+
+    LocalDateTime horaPrimeiraRefeicao = LocalDateTime.now();
+
+    String dataEntrega = formatadorData.format(horaPrimeiraRefeicao)
+      + " - " + formatadorHora.format(horaPrimeiraRefeicao);
+
+    return dataEntrega;
+  }
+
+  /**
    * Método responsável por adicionar uma nova entrega.
    *
    * @param entregaDto - recebe as informações referentes à nova entrega.
@@ -107,24 +140,11 @@ public class EntregaService {
         throw new CustomExistsException("Entrega já está cadastrada.");
       }
 
-      String formatData = "dd/MM/yyyy";
-
-      DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern(formatData);
-
-      String formatHora = "HH:mm:ss";
-
-      DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern(formatHora);
-
-      LocalDateTime horaPrimeiraRefeicao = LocalDateTime.now();
-
-      String dataEntrega = formatadorData.format(horaPrimeiraRefeicao)
-          + " - " + formatadorHora.format(horaPrimeiraRefeicao);
-
-      entregaDto.setData(dataEntrega);
+      entregaDto.setData(generateDate());
 
       Entrega newEntrega = new Entrega(entregaDto.getBairro(), entregaDto.getCep(),
           entregaDto.getEndereco(), entregaDto.getNum(), entregaDto.getDestinatario(),
-          entregaDto.getData(), entregaDto.isStatus());
+          entregaDto.getData(), entregaDto.isStatus(), null);
 
       drones.get(0).setOperando(true);
 
@@ -206,25 +226,12 @@ public class EntregaService {
         throw new CustomNotFoundException("Entrega não encontrada.");
       }
 
-      String formatData = "dd/MM/yyyy";
-
-      DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern(formatData);
-
-      String formatHora = "HH:mm:ss";
-
-      DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern(formatHora);
-
-      LocalDateTime horaPrimeiraRefeicao = LocalDateTime.now();
-
-      String dataEntrega = formatadorData.format(horaPrimeiraRefeicao)
-        + " - " + formatadorHora.format(horaPrimeiraRefeicao);
-
       toBeUpdated.get().setBairro(entregaDto.getBairro());
       toBeUpdated.get().setCep(entregaDto.getCep());
       toBeUpdated.get().setEndereco(entregaDto.getEndereco());
       toBeUpdated.get().setNum(entregaDto.getNum());
       toBeUpdated.get().setDestinatario(entregaDto.getDestinatario());
-      toBeUpdated.get().setData(dataEntrega);
+      toBeUpdated.get().setData(generateDate());
       toBeUpdated.get().setStatus(entregaDto.isStatus());
 
       entregaRepository.save(toBeUpdated.get());
@@ -261,6 +268,52 @@ public class EntregaService {
     } catch (Exception err) {
       logger.error(err.getMessage());
       throw new CustomUnexpectedErrorException();
+    }
+  }
+
+  /**
+   * Método responsável por alterar o status da entrega.
+   */
+  @Transactional
+  public void alterarStatus(Integer id) {
+
+    try {
+      Optional<Entrega> toBeUpdated = entregaRepository.findById(id);
+
+      if (toBeUpdated.isEmpty()) {
+        throw new CustomNotFoundException("Entrega não encontrada.");
+      }
+
+      Optional<Drone> droneStatus = droneRepository.findById(toBeUpdated.get().getDrone().getId());
+
+      droneStatus.get().setOperando(false);
+
+      toBeUpdated.get().setStatus(true);
+      toBeUpdated.get().setData(generateDate());
+
+      droneRepository.save(droneStatus.get());
+      entregaRepository.save(toBeUpdated.get());
+    } catch (CustomNotFoundException err) {
+      logger.error(err.getMessage());
+      throw err;
+    } catch (Exception err) {
+      logger.error(err.getMessage());
+      throw new CustomUnexpectedErrorException();
+    }
+  }
+
+  /**
+   * Mátodo responsável pelo upload de vídeos.
+   */
+  public void salvarVideo(MultipartFile file) throws IOException {
+
+    String path = pathVideos + file.getOriginalFilename();
+
+    try {
+      Files.copy(file.getInputStream(), Path.of(path), StandardCopyOption.REPLACE_EXISTING);
+    } catch (Exception err) {
+      logger.error(err.getMessage());
+      throw new CustomBadRequestException("Erro ao enviar o arquivo.");
     }
   }
 }

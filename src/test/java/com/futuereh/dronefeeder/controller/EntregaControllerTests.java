@@ -71,7 +71,7 @@ public class EntregaControllerTests {
   void adicionarNovaEntrega() throws Exception {
 
     Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
-      "destinatario", dataEntrega, false);
+      "destinatario", dataEntrega, false, null);
 
     mockMvc
       .perform(post("/entrega/add").contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class EntregaControllerTests {
   void deveRetornarEntregaExistsException() throws Exception {
 
     Entrega newEntrega = new Entrega("bairro", "cep", "rua", 1,
-      "destinatario", dataEntrega, false);
+      "destinatario", dataEntrega, false, null);
 
     when(post("/entrega/add")
       .contentType(MediaType.APPLICATION_JSON)

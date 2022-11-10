@@ -2,16 +2,13 @@ package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.dto.EntregaDto;
 import com.futuereh.dronefeeder.service.EntregaService;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * Classe responsável pelos endpoints da aplicação.
@@ -22,10 +19,15 @@ public class EntregaController {
 
   private EntregaService entregaService;
 
+  /**
+   * Construtor da classe EntregaController.
+   */
   public EntregaController(EntregaService entregaService) {
 
     this.entregaService = entregaService;
   }
+
+  private final Logger logger = Logger.getLogger(EntregaService.class);
 
   /**
    * Método responsável pelo endpoint que faz parte do fluxo de adição de uma nova entrega..
@@ -86,5 +88,30 @@ public class EntregaController {
     entregaService.removeEntrega(id);
 
     return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
+  /**
+   * Método responsável por alterar o status de determinada entrega.
+   *
+   * @param id - recebe o id da entrega que será alterada.
+   * @return - não há retorno, somente o status http 200.
+   */
+  @PatchMapping("/{id}")
+  public ResponseEntity alterarStatus(@PathVariable Integer id) {
+
+    entregaService.alterarStatus(id);
+
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
+  /**
+   * Método responsável pelo upload do vídeo.
+   */
+  @PostMapping("/video")
+  public ResponseEntity<String> salvarArquivo(@RequestParam MultipartFile file) throws IOException {
+
+    entregaService.salvarVideo(file);
+
+    return ResponseEntity.status(HttpStatus.OK).body("Arquivo enviado com sucesso.");
   }
 }

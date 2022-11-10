@@ -46,7 +46,7 @@ public class Entrega {
    * Contrutor da classe Entrega. Recebe como parâmetros 7 informações referentes a entrage.
    */
   public Entrega(String bairro, String cep, String endereco, Integer num,
-                 String destinatario, String data, boolean status) {
+                 String destinatario, String data, boolean status, Drone drone) {
 
     this.bairro = bairro;
     this.cep = cep;
@@ -55,6 +55,7 @@ public class Entrega {
     this.destinatario = destinatario;
     this.data = data;
     this.status = status;
+    this.drone = null;
   }
 
   public Integer getId() {
